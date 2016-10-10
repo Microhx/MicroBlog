@@ -41,6 +41,8 @@ public class MainActivity extends BaseActivity {
         id_viewpager = (ViewPager) findViewById(R.id.id_viewpager);
         drawerlayout = (DrawerLayout) findViewById(R.id.drawerlayout);
         navigation_header = (NavigationView) findViewById(R.id.navigation_header);
+
+        System.out.println("hello world...");
     }
 
     private void initNavigationView() {

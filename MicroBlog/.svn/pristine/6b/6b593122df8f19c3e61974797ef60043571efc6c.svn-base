@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <micro.com.microblog.widget.PublicHeadLayout
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:tv_title="聊天"/>
+
+    <micro.com.microblog.widget.RecyclerViewWithHead
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/et_input"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:maxLines="4"
+            android:layout_weight="1"/>
+
+        <ImageButton
+            android:id="@+id/iv_add_emotion"
+            android:layout_width="48dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="5dp"
+            android:background="@null"
+            android:src="@drawable/key_emotion"/>
+
+        <TextView
+            android:id="@+id/ib_send"
+            android:layout_width="48dp"
+            android:text="发送"
+            android:gravity="center"
+            android:textColor="@color/normal_white_color"
+            android:layout_height="match_parent"
+            android:background="@drawable/sender_background"
+            android:layout_gravity="bottom"/>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_emotion_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <micro.com.microblog.emotion.NotScrollViewPager
+            android:id="@+id/view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/bottom_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+</LinearLayout>

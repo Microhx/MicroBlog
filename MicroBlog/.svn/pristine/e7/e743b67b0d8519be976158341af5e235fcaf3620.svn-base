@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="F:\android_test\MicroBlog\app\build\intermediates\exploded-aar\com.android.support\cardview-v7\24.1.1\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.0"
+        sha1="4add8aa95c9f4e9a2ad64b7e2bf08e97e28955c1">
+        <dex dex="F:\android_test\MicroBlog\app\build\intermediates\pre-dexed\release\com.android.support-cardview-v7-24.1.1_b0e0cabba7a4a032e405fd32dd91e89f83db17fa.jar" />
+    </item>
+    <item
+        jar="C:\Users\guoli\.gradle\caches\modules-2\files-2.1\io.reactivex\rxjava\1.1.6\2586312cd2b8a511e4c6236736f5a039fc0f2273\rxjava-1.1.6.jar"
+        jumboMode="false"
+        revision="23.0.0"
+        sha1="2586312cd2b8a511e4c6236736f5a039fc0f2273">
+        <dex dex="F:\android_test\MicroBlog\app\build\intermediates\pre-dexed\release\rxjava-1.1.6_fbd18174d3b62e9fd14d5e7e29e5c4089fff452a.jar" />
+    </item>
+    <item
+        jar="C:\Users\guoli\.gradle\caches\modules-2\files-2.1\com.squareup.okio\okio\1.6.0\98476622f10715998eacf9240d6b479f12c66143\okio-1.6.0.jar"
+        jumboMode="false"
+        revision="23.0.0"
+        sha1="98476622f10715998eacf9240d6b479f12c66143">
+        <dex dex="F:\android_test\MicroBlog\app\build\intermediates\pre-dexed\release\okio-1.6.0_e0e397c06d133bfdc1dd2552c4cf78fab6dfe808.jar" />
+    </item>
+    <item
+        jar="F:\android_test\MicroBlog\app\build\intermediates\exploded-aar\com.android.support\design\24.1.1\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.0"
+        sha1="e195bd694d5389acfba27ff4fdfa64c4c65b2c05">
+        <dex dex="F:\android_test\MicroBlog\app\build\intermediates\pre-dexed\release\com.android.support-design-24.1.1_e791d74189b6e8eafab186c61dc03500609fd36d.jar" />
+    </item>
+    <item
+        jar="C:\Users\guoli\.gradle\caches\modules-2\files-2.1\com.squareup.okhttp3\okhttp\3.0.1\b34c1f2d993044656e87f88970b6818e99e886ba\okhttp-3.0.1.jar"
+        jumboMode="false"
+        revision="23.0.0"
+        sha1="b34c1f2d993044656e87f88970b6818e99e886ba">
+        <dex dex="F:\android_test\MicroBlog\app\build\intermediates\pre-dexed\release\okhttp-3.0.1_bf9bc9925cc1287b93a3b914775510d832ca2fec.jar" />
+    </item>
+    <item
+        jar="F:\android_test\MicroBlog\app\libs\ormlite-android-5.0.jar"
+        jumboMode="false"
+        revision="23.0.0"
+        sha1="01f065373aeef355dd9e2fd9854efd5ed4d54f6d">
+        <dex dex="F:\android_test\MicroBlog\app\build\intermediates\pre-dexed\release\ormlite-android-5.0_0ffcc0415b1240c2436bd72f2efc0b380c6064e3.jar" />
+    </item>
+    <item
+        jar="F:\android_test\MicroBlog\app\libs\mta-sdk-1.6.2.jar"
+        jumboMode="false"
+        revision="23.0.0"
+        sha1="c184c69f43b1fe46390f7123717c65bd844bccb6">
+        <dex dex="F:\android_test\MicroBlog\app\build\intermediates\pre-dexed\release\mta-sdk-1.6.2_64fcd7aa3f61aac65facce6faea7b12825b3e1d3.jar" />
+    </item>
+    <item
+        jar="F:\android_test\MicroBlog\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-appindexing\8.1.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.0"
+        sha1="4477ea44f5ec5ad064022a22691732d7638ff197">
+        <dex dex="F:\android_test\MicroBlog\app\build\intermediates\pre-dexed\release\com.google.android.gms-play-services-appindexing-8.1.0_f75e30055710380c7c8488eacd298f9992cd46c9.jar" />
+    </item>
+    <item
+        jar="F:\android_test\MicroBlog\app\libs\jsoup-1.7.2.jar"
+        jumboMode="false"
+        revision="23.0.0"
+        sha1="872693211fd68d1c4e116cf90021603207725e19">
+        <dex dex="F:\android_test\MicroBlog\app\build\intermediates\pre-dexed\release\jsoup-1.7.2_ba16f71ff922fadaf4a6f73e035dadc3eb6c19f2.jar" />
+    </item>
+    <item
+        jar="C:\Users\guoli\.gradle\caches\modules-2\files-2.1\org.greenrobot\eventbus\3.0.0\ddd99896e9569eaababbe81b35d80e1b91c4ad85\eventbus-3.0.0.jar"
+        jumboMode="false"
+        revision="23.0.0"
+        sha1="ddd99896e9569eaababbe81b35d80e1b91c4ad85">
+        <dex dex="F:\android_test\MicroBlog\app\build\intermediates\pre-dexed\release\eventbus-3.0.0_e2843a03504a0669e8930581d969758afc03c7af.jar" />
+    </item>
+    <item
+        jar="F:\android_test\MicroBlog\app\libs\open_sdk_r5756.jar"
+        jumboMode="false"
+        revision="23.0.0"
+        sha1="7f7bf100e53d9099032f113728725e1843e1fbe2">
+        <dex dex="F:\android_test\MicroBlog\app\build\intermediates\pre-dexed\release\open_sdk_r5756_b536d943994c7c200f7ad1174b96fa07126547cb.jar" />
+    </item>
+    <item
+        jar="F:\android_test\MicroBlog\app\libs\libammsdk.jar"
+        jumboMode="false"
+        revision="23.0.0"
+        sha1="c1f63f70671d69ee38379728e1192db82e289246">
+        <dex dex="F:\android_test\MicroBlog\app\build\intermediates\pre-dexed\release\libammsdk_179d48b05648c788fb7af3f7a0d0329ffe95e041.jar" />
+    </item>
+    <item
+        jar="F:\android_test\MicroBlog\app\build\intermediates\exploded-aar\me.imid.swipebacklayout.lib\library\1.0.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.0"
+        sha1="6d0958dbac8e7be76690b8e85d91698dfadbd81e">
+        <dex dex="F:\android_test\MicroBlog\app\build\intermediates\pre-dexed\release\me.imid.swipebacklayout.lib-library-1.0.0_2a788732998d7264f406ae2913544bad4bb0181d.jar" />
+    </item>
+    <item
+        jar="F:\android_test\MicroBlog\app\libs\butterknife-7.0.1.jar"
+        jumboMode="false"
+        revision="23.0.0"
+        sha1="d5d13ea991eab0252e3710e5df3d6a9d4b21d461">
+        <dex dex="F:\android_test\MicroBlog\app\build\intermediates\pre-dexed\release\butterknife-7.0.1_7ea20ba2135d46f37f1833ad2fcfa15e560d914b.jar" />
+    </item>
+    <item
+        jar="F:\android_test\MicroBlog\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\24.1.1\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.0"
+        sha1="1256c10604bb098490eab070d76754ac5ceab35c">
+        <dex dex="F:\android_test\MicroBlog\app\build\intermediates\pre-dexed\release\com.android.support-appcompat-v7-24.1.1_720d73b065083cc2db3beae28dc9c9ec4604fa04.jar" />
+    </item>
+    <item
+        jar="C:\Users\guoli\.gradle\caches\modules-2\files-2.1\com.google.code.gson\gson\2.4\695b63d702f505b9b916e02272e3b6381bade7f\gson-2.4.jar"
+        jumboMode="false"
+        revision="23.0.0"
+        sha1="0695b63d702f505b9b916e02272e3b6381bade7f">
+        <dex dex="F:\android_test\MicroBlog\app\build\intermediates\pre-dexed\release\gson-2.4_97706da14adb2b41c484d5b0b09f851ba4be29e6.jar" />
+    </item>
+    <item
+        jar="C:\Users\guoli\.gradle\caches\modules-2\files-2.1\com.android.support\support-annotations\24.1.1\3af19f153122737b372622fa6c81dd11a1c6b999\support-annotations-24.1.1.jar"
+        jumboMode="false"
+        revision="23.0.0"
+        sha1="3af19f153122737b372622fa6c81dd11a1c6b999">
+        <dex dex="F:\android_test\MicroBlog\app\build\intermediates\pre-dexed\release\support-annotations-24.1.1_589b7612b8992b643eab2de9e8723957d4b43376.jar" />
+    </item>
+    <item
+        jar="F:\android_test\MicroBlog\app\build\intermediates\exploded-aar\io.reactivex\rxandroid\1.2.1\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.0"
+        sha1="5a2386ad9bfff580b206a7fe305cdccd00798159">
+        <dex dex="F:\android_test\MicroBlog\app\build\intermediates\pre-dexed\release\io.reactivex-rxandroid-1.2.1_69442df3450940810145d19bedfbaf092c529286.jar" />
+    </item>
+    <item
+        jar="F:\android_test\MicroBlog\app\libs\tencent.jar"
+        jumboMode="false"
+        revision="23.0.0"
+        sha1="625aba38967d1ccd8ccc70931d497eceb5485ad4">
+        <dex dex="F:\android_test\MicroBlog\app\build\intermediates\pre-dexed\release\tencent_246e249788110ca65478696470ad38d0fb4ec277.jar" />
+    </item>
+    <item
+        jar="F:\android_test\MicroBlog\app\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\24.1.1\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.0"
+        sha1="787871951412550519b0222aba3c9df4cea49875">
+        <dex dex="F:\android_test\MicroBlog\app\build\intermediates\pre-dexed\release\com.android.support-recyclerview-v7-24.1.1_f78f4caf5679b1b5904517251446b3c810992fd9.jar" />
+    </item>
+    <item
+        jar="F:\android_test\MicroBlog\app\libs\ormlite-core-5.0.jar"
+        jumboMode="false"
+        revision="23.0.0"
+        sha1="03382b8260646dd334a1b9c1b3d412fcb73d8b21">
+        <dex dex="F:\android_test\MicroBlog\app\build\intermediates\pre-dexed\release\ormlite-core-5.0_8d345414b2b3e9242ad0ac54f06e461ab6bfacfd.jar" />
+    </item>
+    <item
+        jar="F:\android_test\MicroBlog\app\build\intermediates\exploded-aar\com.android.support\support-vector-drawable\24.1.1\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.0"
+        sha1="f62e763609f65e47dc6c498760a4accf02776788">
+        <dex dex="F:\android_test\MicroBlog\app\build\intermediates\pre-dexed\release\com.android.support-support-vector-drawable-24.1.1_21c1abeee1d2a611a665b11a1a48333a6c86e9e0.jar" />
+    </item>
+    <item
+        jar="F:\android_test\MicroBlog\app\build\intermediates\exploded-aar\com.android.support\support-v4\24.1.1\jars\libs\internal_impl-24.1.1.jar"
+        jumboMode="false"
+        revision="23.0.0"
+        sha1="f78c2f395cb096f9dc1dc07e729922b8fcd3c4f5">
+        <dex dex="F:\android_test\MicroBlog\app\build\intermediates\pre-dexed\release\internal_impl-24.1.1_a1f920fbffb04506b2e8ae8e322f1c426ce562e5.jar" />
+    </item>
+    <item
+        jar="F:\android_test\MicroBlog\app\build\intermediates\exploded-aar\com.android.support\animated-vector-drawable\24.1.1\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.0"
+        sha1="c936c1bd42f0c018c18920c7bec619ef056b24f8">
+        <dex dex="F:\android_test\MicroBlog\app\build\intermediates\pre-dexed\release\com.android.support-animated-vector-drawable-24.1.1_be0492efa6d30d71c06b0fdaad69c0dd205f4948.jar" />
+    </item>
+    <item
+        jar="F:\android_test\MicroBlog\app\build\intermediates\exploded-aar\com.android.support\support-v4\24.1.1\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.0"
+        sha1="6d7d803871e3203465f71a163e7af104f807b446">
+        <dex dex="F:\android_test\MicroBlog\app\build\intermediates\pre-dexed\release\com.android.support-support-v4-24.1.1_b47da9c73016e8339353bdfd10cac7db3f56930e.jar" />
+    </item>
+    <item
+        jar="C:\Users\guoli\.gradle\caches\modules-2\files-2.1\com.squareup.retrofit2\adapter-rxjava\2.0.0-beta4\bd49baf667542c7d06f71e598bdee7fe57272013\adapter-rxjava-2.0.0-beta4.jar"
+        jumboMode="false"
+        revision="23.0.0"
+        sha1="bd49baf667542c7d06f71e598bdee7fe57272013">
+        <dex dex="F:\android_test\MicroBlog\app\build\intermediates\pre-dexed\release\adapter-rxjava-2.0.0-beta4_12a44c7e359b50be1807145522b59d187a67fb07.jar" />
+    </item>
+    <item
+        jar="C:\Users\guoli\.gradle\caches\modules-2\files-2.1\com.squareup.retrofit2\retrofit\2.0.0-beta4\739e00dea1f0ac04fdb9b6160d667e23cc50a791\retrofit-2.0.0-beta4.jar"
+        jumboMode="false"
+        revision="23.0.0"
+        sha1="739e00dea1f0ac04fdb9b6160d667e23cc50a791">
+        <dex dex="F:\android_test\MicroBlog\app\build\intermediates\pre-dexed\release\retrofit-2.0.0-beta4_1d8c6a70d6c231a402b74c685ac48fe80e1a5e5c.jar" />
+    </item>
+    <item
+        jar="F:\android_test\MicroBlog\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-basement\8.1.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.0"
+        sha1="d0dda274b703dd9c5bb056867649d22b4171ae7d">
+        <dex dex="F:\android_test\MicroBlog\app\build\intermediates\pre-dexed\release\com.google.android.gms-play-services-basement-8.1.0_71321ed702eb6146c716089d4fd580f044342454.jar" />
+    </item>
+
+</items>

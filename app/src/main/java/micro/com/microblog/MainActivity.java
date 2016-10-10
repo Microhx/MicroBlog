@@ -33,9 +33,6 @@ public class MainActivity extends BaseActivity {
 
         //关闭侧滑删除
         setSwipeBackEnable(false);
-
-        System.out.println("==================MainActivity start================");
-
     }
 
     private void initViews() {

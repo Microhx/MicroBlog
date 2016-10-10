@@ -56,5 +56,4 @@ public class InfoQBlogFragment extends BaseListFragment<Blog, InfoQPresenter> {
         EventBus.getDefault().unregister(this);
     }
 
-
 }

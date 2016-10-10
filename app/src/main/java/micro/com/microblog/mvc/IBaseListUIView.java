@@ -19,4 +19,6 @@ public interface IBaseListUIView<T> extends IBaseUIView<T>{
 
     /**隐藏等待框*/
     void dismissDialog() ;
+
+    void onLoadError(boolean isFirstTime) ;
 }

@@ -41,6 +41,7 @@ public class InfoQPresenter extends BaseListPresenter<IBaseListUIView<Blog>> {
             @Override
             public void call(Throwable throwable) {
                 LogUtils.d("infoQ error : " + throwable);
+                getCurrentView().onLoadError(isFirstTime);
             }
         }) ;
     }

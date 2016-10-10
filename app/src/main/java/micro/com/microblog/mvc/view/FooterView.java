@@ -18,7 +18,8 @@ public class FooterView extends RelativeLayout {
         LOADING,
         FINISH,
         NO_DATA,
-        NO_NULL  //隐藏
+        NO_NULL,  //隐藏
+        ERROR
     }
 
     private State mCurrent = State.LOADING;
@@ -55,6 +56,12 @@ public class FooterView extends RelativeLayout {
                 tvLoading.setText(R.string.data_loading);
                 pbBar.setVisibility(VISIBLE);
 
+                break;
+
+            case ERROR:
+                tvLoading.setVisibility(VISIBLE);
+                tvLoading.setText(R.string.data_error);
+                pbBar.setVisibility(GONE);
                 break;
 
             case FINISH:

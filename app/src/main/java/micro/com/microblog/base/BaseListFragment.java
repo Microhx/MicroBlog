@@ -100,6 +100,7 @@ public abstract class BaseListFragment<V, T extends BaseListPresenter<IBaseListU
             LogUtils.d("mListPresenter is null");
             return;
         }
+
         mCurrentPage = 1;
         recycler_view.startRequest();
         mListPresenter.getToRequest(true, mBlogParser, mCurrentPage);
@@ -152,6 +153,16 @@ public abstract class BaseListFragment<V, T extends BaseListPresenter<IBaseListU
                 mCurrentPageSize = mDatas.size();
                 changeRecyclerState(false, mDatas, state);
             }
+        }
+    }
+
+    @Override
+    public void onLoadError(boolean isFirstTime) {
+        if(isFirstTime) {
+            showError();
+        }else {
+            recycler_view.finishRequest();
+            changeRecyclerState(false, null, FooterView.State.ERROR);
         }
     }
 

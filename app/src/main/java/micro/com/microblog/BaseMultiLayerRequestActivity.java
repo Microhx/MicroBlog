@@ -1,6 +1,7 @@
 package micro.com.microblog;
 
 import android.view.View;
+import android.widget.TextView;
 
 import micro.com.microblog.controller.MultiLayerController;
 import micro.com.microblog.mvc.IDetailContentView;
@@ -37,6 +38,15 @@ public abstract class BaseMultiLayerRequestActivity extends BaseActivity impleme
     @Override
     public void showErrorPage() {
         View errorPage = View.inflate(this,R.layout.layout_error,null) ;
+        TextView tvError = (TextView) errorPage.findViewById(R.id.tv_error);
+        tvError.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showTheTargetPage();
+                getTheFirstRequest();
+            }
+        });
+
         mMultiLayerController.changeCurrentView(errorPage);
     }
 
@@ -49,4 +59,9 @@ public abstract class BaseMultiLayerRequestActivity extends BaseActivity impleme
     public void showTheTargetPage() {
         mMultiLayerController.restoreView();
     }
+
+    protected void getTheFirstRequest() {
+
+    }
+
 }

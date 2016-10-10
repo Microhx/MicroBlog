@@ -45,6 +45,7 @@ public class ITeyePresenter extends BaseListPresenter<IBaseListUIView<Blog>> {
             @Override
             public void call(Throwable throwable) {
                 LogUtils.d("itEyeError: " + throwable);
+                getCurrentView().onLoadError(isFirstTime);
             }
         }) ;
 

@@ -47,6 +47,7 @@ public class CSDNBlogPresenter extends BaseListPresenter<IBaseListUIView<Blog>> 
             @Override
             public void call(Throwable throwable) {
                 LogUtils.d("CSDN error : " + throwable);
+                getCurrentView().onLoadError(isFirstTime);
             }
         }) ;
 

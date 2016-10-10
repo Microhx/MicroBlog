@@ -12,6 +12,7 @@ import rx.Observable;
 import rx.Subscriber;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
@@ -27,26 +28,23 @@ public class OSChinaPresenter extends BaseListPresenter<IBaseListUIView<Blog>> {
                 getInstance(BaseURL.OS_CHINA_PATH, BaseURL.class).
                 getOSChinaArticle(0, mCurrentPageSize).
                 flatMap(new Func1<String, Observable<List<Blog>>>() {
-            @Override
-            public Observable<List<Blog>> call(String s) {
-                return Observable.just(mBlogParser.getBlogList(0, s));
-            }
-        }).
+                    @Override
+                    public Observable<List<Blog>> call(String s) {
+                        return Observable.just(mBlogParser.getBlogList(0, s));
+                    }
+                }).
                 subscribeOn(Schedulers.io()).
                 observeOn(AndroidSchedulers.mainThread()).
-                subscribe(new Subscriber<List<Blog>>() {
+                subscribe(new Action1<List<Blog>>() {
                     @Override
-                    public void onCompleted() {
+                    public void call(List<Blog> blogs) {
+                        getCurrentView().onFinishLoad(blogs, isFirstTime);
                     }
-
+                }, new Action1<Throwable>() {
                     @Override
-                    public void onError(Throwable e) {
-                        LogUtils.d("OSChina:" + e);
-                    }
-
-                    @Override
-                    public void onNext(List<Blog> s) {
-                        getCurrentView().onFinishLoad(s, isFirstTime);
+                    public void call(Throwable throwable) {
+                        LogUtils.d("OSChina:" + throwable);
+                        getCurrentView().onLoadError(isFirstTime);
                     }
                 });
 

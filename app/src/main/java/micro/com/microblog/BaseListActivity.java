@@ -91,6 +91,11 @@ public abstract class BaseListActivity<V, T extends BaseListPresenter<IBaseListU
         recycler_view.setLayoutManager(new LinearLayoutManager(this));
         recycler_view.setLoadingListener(this);
 
+        getTheFirstRequest();
+    }
+
+    @Override
+    protected void getTheFirstRequest() {
         mCurrentPage = 1;
         recycler_view.startRequest();
         mListPresenter.getToRequest(true, null, mCurrentPage);
@@ -162,6 +167,16 @@ public abstract class BaseListActivity<V, T extends BaseListPresenter<IBaseListU
             }
         }
     }
+
+    public void onLoadError(boolean isFirstTime) {
+        if(isFirstTime) {
+            showErrorPage();
+        }else {
+            recycler_view.finishRequest();
+            changeRecyclerState(false, null, FooterView.State.ERROR);
+        }
+    }
+
 
     private void refreshFinished(final boolean isFinish) {
         swipe_refresh_layout.post(new Runnable() {

@@ -1,6 +1,7 @@
 package micro.com.microblog.base;
 
 import android.view.View;
+import android.widget.TextView;
 
 import micro.com.microblog.R;
 import micro.com.microblog.controller.MultiLayerController;
@@ -23,10 +24,20 @@ public abstract class BaseMultiLayerFragment extends BaseFragment{
     }
 
     public void showError() {
-        View empty = View.inflate(getContext(), R.layout.layout_error,null) ;
-        multiLayerController.changeCurrentView(empty);
+        View error = View.inflate(getContext(), R.layout.layout_error,null) ;
+        TextView tvError = (TextView) error.findViewById(R.id.tv_error);
+        tvError.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                multiLayerController.restoreView();
+
+                onUserFirstTimeRequest();
+            }
+        });
+
+        multiLayerController.changeCurrentView(error);
     }
 
-
     protected abstract View getTargetView();
+
 }

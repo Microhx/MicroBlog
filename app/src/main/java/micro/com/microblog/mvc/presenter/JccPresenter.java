@@ -49,6 +49,7 @@ public class JccPresenter extends BaseListPresenter<IBaseListUIView<Blog>> {
                     @Override
                     public void call(Throwable throwable) {
                         LogUtils.d("Jcc error:" + throwable);
+                        getCurrentView().onLoadError(isFirstTime);
                     }
                 });
 

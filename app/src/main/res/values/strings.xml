@@ -5,7 +5,7 @@
     <string name="data_finish">加载完成....</string>
     <string name="data_no_data">无更多数据</string>
     <string name="str_empty">数据为空</string>
-    <string name="str_error">数据不存在</string>
+    <string name="str_error">数据不存在,点击重试</string>
     <string name="str_chatting">聊天</string>
     <string name="str_news">新闻</string>
     <string name="str_collection">收藏</string>
@@ -19,4 +19,5 @@
     <string name="search_tag">搜索</string>
     <string name="search_hint">请输入关键字(Android,IOS,Java....)</string>
     <string name="dl_cancel">取消</string>
+    <string name="data_error">加载失败</string>
 </resources>

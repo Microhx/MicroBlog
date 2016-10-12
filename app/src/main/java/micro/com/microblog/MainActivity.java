@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import butterknife.Bind;
 import butterknife.OnClick;
 import micro.com.microblog.adapter.MainTabAdapter;
+import micro.com.microblog.controller.ChangeModeController;
 import micro.com.microblog.utils.ToUtils;
 
 public class MainActivity extends BaseActivity {
@@ -73,6 +74,10 @@ public class MainActivity extends BaseActivity {
 
             case R.id.item_about_author:
                 enterActivity(AboutAuthorActivity.class);
+                break;
+
+            case R.id.item_setting :
+                enterActivity(UserSettingActivity.class);
                 break;
         }
 

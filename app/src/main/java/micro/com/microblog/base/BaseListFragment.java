@@ -24,7 +24,7 @@ import micro.com.microblog.utils.LogUtils;
 
 /**
  * Created by guoli on 2016/8/24.
- * <p/>
+ * <p>
  * 带有List列表的Fragment
  */
 public abstract class BaseListFragment<V, T extends BaseListPresenter<IBaseListUIView<V>>>
@@ -158,9 +158,9 @@ public abstract class BaseListFragment<V, T extends BaseListPresenter<IBaseListU
 
     @Override
     public void onLoadError(boolean isFirstTime) {
-        if(isFirstTime) {
+        if (isFirstTime) {
             showError();
-        }else {
+        } else {
             recycler_view.finishRequest();
             changeRecyclerState(false, null, FooterView.State.ERROR);
         }

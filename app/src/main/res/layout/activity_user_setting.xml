@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <micro.com.microblog.widget.PublicHeadLayout
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:tv_title="设置"/>
+
+    <micro.com.microblog.widget.SettingItem
+        android:id="@+id/item_mode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:iv_icon="@drawable/day_night_convert"
+        app:msg="日夜间模式切换"/>
+
+
+</LinearLayout>

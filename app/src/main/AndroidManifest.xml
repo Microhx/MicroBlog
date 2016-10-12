@@ -75,6 +75,9 @@
         <!--搜索界面-->
         <activity android:name=".SearchResultActivity" />
 
+        <!--用户设置-->
+        <activity android:name=".UserSettingActivity" />
+
 
     </application>
 

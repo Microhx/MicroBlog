@@ -16,6 +16,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="48dp"
+            android:background="@color/normal_white_color"
             android:orientation="horizontal">
 
             <android.support.design.widget.TabLayout
@@ -23,15 +24,16 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                app:tabIndicatorColor="@color/app_theme_color_day"
                 app:tabSelectedTextColor="@color/text_black_color"
                 app:tabTextColor="@color/text_normal_color"/>
 
             <ImageView
                 android:id="@+id/iv_search"
                 android:layout_width="48dp"
+                android:layout_height="match_parent"
                 android:layout_margin="5dp"
                 android:padding="5dp"
-                android:layout_height="match_parent"
                 android:src="@drawable/ic_search_grn"/>
 
         </LinearLayout>
@@ -49,7 +51,10 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
+        android:background="?attr/dayNightBackground"
+        app:dayNightBackgroundAttr="dayNightBackground"
         app:headerLayout="@layout/menu_head_layout"
-        app:menu="@menu/main_menu"/>
+        app:menu="@menu/main_menu"
+        />
 
 </android.support.v4.widget.DrawerLayout>

@@ -12,8 +12,9 @@
         android:id="@+id/layout_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/item_blog_background"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="?attr/dayNightBackground"
+        app:dayNightBackgroundAttr="dayNightBackground">
 
         <TextView
             android:id="@+id/tv_title"

@@ -19,12 +19,12 @@ public abstract class BaseMultiLayerFragment extends BaseFragment{
     }
 
     public void showEmpty() {
-        View empty = View.inflate(getContext(), R.layout.layout_empty,null) ;
+        View empty = View.inflate(getActivity(), R.layout.layout_empty,null) ;
         multiLayerController.changeCurrentView(empty);
     }
 
     public void showError() {
-        View error = View.inflate(getContext(), R.layout.layout_error,null) ;
+        View error = View.inflate(getActivity(), R.layout.layout_error,null) ;
         TextView tvError = (TextView) error.findViewById(R.id.tv_error);
         tvError.setOnClickListener(new View.OnClickListener() {
             @Override

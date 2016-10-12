@@ -9,8 +9,17 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
+import java.util.Stack;
+
 import butterknife.ButterKnife;
 import me.imid.swipebacklayout.lib.app.SwipeBackActivity;
+import micro.com.microblog.controller.ChangeModeController;
+import micro.com.microblog.entity.NotifyBean;
+import micro.com.microblog.utils.LogUtils;
 
 /**
  * Created by guoli on 2016/8/23.
@@ -22,14 +31,31 @@ public abstract class BaseActivity extends SwipeBackActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         //initStatueBar();
+        beforeContentView();
+
         super.onCreate(savedInstanceState);
         mTopActivity = this ;
+        MicroApplication.addActivity(this);
 
         setContentView(getContentLayoutId());
         ButterKnife.bind(this);
 
         initIntent(getIntent()) ;
         initViewsAndData();
+    }
+
+    protected void beforeContentView() {
+        initTheme();
+    }
+
+    /**
+     * 设置主题
+     */
+    private void initTheme() {
+        ChangeModeController.setTheme(this, R.style.DayTheme, R.style.NightTheme);
+
+        //切换daynight模式要立即变色的页面
+        ChangeModeController.getInstance().init(this,R.attr.class);
     }
 
     protected void initIntent(Intent intent) {}
@@ -47,6 +73,8 @@ public abstract class BaseActivity extends SwipeBackActivity {
         super.onDestroy();
 
         ButterKnife.unbind(this);
+
+        MicroApplication.removeActivity(this);
     }
 
     /**
@@ -85,6 +113,7 @@ public abstract class BaseActivity extends SwipeBackActivity {
             }
         }
     }*/
+
 
 
 }

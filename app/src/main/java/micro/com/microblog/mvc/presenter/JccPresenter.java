@@ -9,7 +9,6 @@ import micro.com.microblog.mvc.IBaseListUIView;
 import micro.com.microblog.parser.IBlogParser;
 import micro.com.microblog.utils.LogUtils;
 import rx.Observable;
-import rx.Subscriber;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
@@ -22,17 +21,16 @@ import rx.schedulers.Schedulers;
 public class JccPresenter extends BaseListPresenter<IBaseListUIView<Blog>> {
     /**
      * ///plus/list.php?tid=18&TotalResult=1652&PageNo=2
-     *
-     * @param isFirstTime
+     *  @param isFirstTime
      * @param mBlogParser
-     * @param mcurrentPage
+     * @param mCurrentPage
      */
 
     @Override
-    public void getToRequest(final boolean isFirstTime, final IBlogParser mBlogParser, int mcurrentPage) {
+    public void getToRequest(final boolean isFirstTime, final IBlogParser mBlogParser, int mCurrentPage, int mCurrentTotal) {
         Subscription sub = RetrofitUtils.
                 getInstance(BaseURL.JCC_PATH, BaseURL.class).
-                getJccArticle(18, mcurrentPage).flatMap(new Func1<String, Observable<List<Blog>>>() {
+                getJccArticle(18, mCurrentPage).flatMap(new Func1<String, Observable<List<Blog>>>() {
             @Override
             public Observable<List<Blog>> call(String s) {
                 return Observable.just(mBlogParser.getBlogList(0, s));

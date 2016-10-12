@@ -9,7 +9,6 @@ import micro.com.microblog.mvc.IBaseListUIView;
 import micro.com.microblog.parser.IBlogParser;
 import micro.com.microblog.utils.LogUtils;
 import rx.Observable;
-import rx.Subscriber;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
@@ -27,10 +26,10 @@ public class CSDNBlogPresenter extends BaseListPresenter<IBaseListUIView<Blog>> 
     private int mCurrentType = 0;
 
     @Override
-    public void getToRequest(final boolean isFirstTime, final IBlogParser mBlogParser, int mCurrentPageSize) {
+    public void getToRequest(final boolean isFirstTime, final IBlogParser mBlogParser, int mCurrentPage, int currentTotal) {
         Subscription subscription = RetrofitUtils.
                 getInstance(BaseURL.CSDN_PATH, BaseURL.class).
-                getCSDNArticle(mCurrentPageSize).
+                getCSDNArticle(mCurrentPage).
                 flatMap(new Func1<String, Observable<List<Blog>>>(){
             @Override
             public Observable<List<Blog>> call(String s) {

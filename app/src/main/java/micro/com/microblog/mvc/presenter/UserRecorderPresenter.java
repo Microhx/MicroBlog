@@ -20,14 +20,14 @@ public class UserRecorderPresenter extends BaseListPresenter<IBaseListUIView<Blo
 
 
     @Override
-    public void getToRequest(final boolean isFirstTime, IBlogParser mBlogParser, final int mCurrentPageSize) {
+    public void getToRequest(final boolean isFirstTime, IBlogParser mBlogParser, final int mCurrentPage, final int currentTotal) {
 
         Observable.create(new Observable.OnSubscribe<List<Blog>>() {
             @Override
             public void call(Subscriber<? super List<Blog>> subscriber) {
                 List<Blog> readBlogList = null;
                 try {
-                    readBlogList = DBDataUtils.getUserReadBlog(ComUtils.PAGE_SIZE, ComUtils.PAGE_SIZE * (mCurrentPageSize - 1));
+                    readBlogList = DBDataUtils.getUserReadBlog(ComUtils.PAGE_SIZE, ComUtils.PAGE_SIZE * (mCurrentPage - 1));
                 } catch (Exception e) {
                     subscriber.onError(e);
                 }

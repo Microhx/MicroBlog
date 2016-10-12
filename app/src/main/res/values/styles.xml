@@ -20,11 +20,14 @@
         <item name="dayNightBackground">@color/day_backgroup_color</item>
         <item name="dayNightOneTextColor">@color/day_one_text_color</item>
         <item name="dayNightTwoTextColor">@color/day_two_text_color</item>
+
         <item name="dayNightThreeTextColor">@color/day_three_text_color</item>
         <item name="dayNightBackgroundDrawable">@color/day_backgroup_color</item>
         <item name="appBackground">@color/day_app_theme_color</item>
 
     </style>
+
+
     <!--夜间主题-->
     <style name="NightTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/night_backgroup_color</item>
@@ -34,6 +37,7 @@
         <item name="dayNightBackground">@color/night_backgroup_color</item>
         <item name="dayNightOneTextColor">@color/night_one_text_color</item>
         <item name="dayNightTwoTextColor">@color/night_two_text_color</item>
+
         <item name="dayNightThreeTextColor">@color/night_there_text_color</item>
         <item name="dayNightBackgroundDrawable">@color/night_there_text_color</item>
         <item name="appBackground">@color/day_night_theme_color</item>

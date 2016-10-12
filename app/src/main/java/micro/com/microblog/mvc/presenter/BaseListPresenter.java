@@ -7,6 +7,6 @@ import micro.com.microblog.parser.IBlogParser;
  */
 public abstract class BaseListPresenter<T> extends BasePresenter<T> {
 
-    public abstract void getToRequest(boolean isFirstTime, IBlogParser mBlogParser, int mCurrentPageSize) ;
+    public abstract void getToRequest(boolean isFirstTime, IBlogParser mBlogParser, int mCurrentPage, int currentTotal) ;
 
 }

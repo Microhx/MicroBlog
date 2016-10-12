@@ -9,7 +9,6 @@ import micro.com.microblog.mvc.IBaseListUIView;
 import micro.com.microblog.parser.IBlogParser;
 import micro.com.microblog.utils.LogUtils;
 import rx.Observable;
-import rx.Subscriber;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
@@ -22,11 +21,11 @@ import rx.schedulers.Schedulers;
 public class OSChinaPresenter extends BaseListPresenter<IBaseListUIView<Blog>> {
 
     @Override
-    public void getToRequest(final boolean isFirstTime, final IBlogParser mBlogParser, int mCurrentPageSize) {
+    public void getToRequest(final boolean isFirstTime, final IBlogParser mBlogParser, int mCurrentPage, int currentTotal) {
 
         Subscription sub = RetrofitUtils.
                 getInstance(BaseURL.OS_CHINA_PATH, BaseURL.class).
-                getOSChinaArticle(0, mCurrentPageSize).
+                getOSChinaArticle("428602", currentTotal).
                 flatMap(new Func1<String, Observable<List<Blog>>>() {
                     @Override
                     public Observable<List<Blog>> call(String s) {

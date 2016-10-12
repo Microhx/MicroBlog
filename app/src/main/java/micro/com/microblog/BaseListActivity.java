@@ -12,7 +12,6 @@ import com.google.android.gms.common.api.GoogleApiClient;
 
 import java.util.List;
 
-import butterknife.Bind;
 import micro.com.microblog.adapter.BaseListAdapter;
 import micro.com.microblog.mvc.IBaseListUIView;
 import micro.com.microblog.mvc.presenter.BaseListPresenter;
@@ -98,7 +97,7 @@ public abstract class BaseListActivity<V, T extends BaseListPresenter<IBaseListU
     protected void getTheFirstRequest() {
         mCurrentPage = 1;
         recycler_view.startRequest();
-        mListPresenter.getToRequest(true, null, mCurrentPage);
+        mListPresenter.getToRequest(true, null, mCurrentPage, mCurrentPage);
         refreshFinished(true);
     }
 
@@ -118,14 +117,14 @@ public abstract class BaseListActivity<V, T extends BaseListPresenter<IBaseListU
     public void onRefresh() {
         mCurrentPage = 1;
         recycler_view.startRequest();
-        mListPresenter.getToRequest(true, null, mCurrentPage);
+        mListPresenter.getToRequest(true, null, mCurrentPage, mCurrentPage);
     }
 
     @Override
     public void loadingMoreData() {
         mCurrentPage++;
         recycler_view.startRequest();
-        mListPresenter.getToRequest(false, null, mCurrentPage);
+        mListPresenter.getToRequest(false, null, mCurrentPage, mCurrentPage);
     }
 
     @Override

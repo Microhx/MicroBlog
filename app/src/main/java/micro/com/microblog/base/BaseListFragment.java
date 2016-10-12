@@ -4,15 +4,11 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-
 import java.util.List;
 
 import butterknife.Bind;
 import micro.com.microblog.R;
 import micro.com.microblog.adapter.BaseListAdapter;
-import micro.com.microblog.entity.EventBean;
 import micro.com.microblog.mvc.IBaseListUIView;
 import micro.com.microblog.mvc.presenter.BaseListPresenter;
 import micro.com.microblog.mvc.view.CustomRecyclerView;
@@ -103,7 +99,7 @@ public abstract class BaseListFragment<V, T extends BaseListPresenter<IBaseListU
 
         mCurrentPage = 1;
         recycler_view.startRequest();
-        mListPresenter.getToRequest(true, mBlogParser, mCurrentPage);
+        mListPresenter.getToRequest(true, mBlogParser, mCurrentPage,mBaseListAdapter.getItemCount());
         refreshFinished(false);
     }
 
@@ -111,14 +107,14 @@ public abstract class BaseListFragment<V, T extends BaseListPresenter<IBaseListU
     public void onRefresh() {
         mCurrentPage = 1;
         recycler_view.startRequest();
-        mListPresenter.getToRequest(true, mBlogParser, mCurrentPage);
+        mListPresenter.getToRequest(true, mBlogParser, mCurrentPage, mBaseListAdapter.getItemCount());
     }
 
     @Override
     public void loadingMoreData() {
         mCurrentPage++;
         recycler_view.startRequest();
-        mListPresenter.getToRequest(false, mBlogParser, mCurrentPage);
+        mListPresenter.getToRequest(false, mBlogParser, mCurrentPage, mBaseListAdapter.getItemCount());
     }
 
     @Override
@@ -160,6 +156,7 @@ public abstract class BaseListFragment<V, T extends BaseListPresenter<IBaseListU
     public void onLoadError(boolean isFirstTime) {
         if (isFirstTime) {
             showError();
+            refreshFinished(true);
         } else {
             recycler_view.finishRequest();
             changeRecyclerState(false, null, FooterView.State.ERROR);

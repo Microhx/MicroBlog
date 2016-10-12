@@ -1,24 +1,16 @@
 package micro.com.microblog.mvc.presenter;
 
 import java.util.List;
-import java.util.concurrent.Callable;
-import java.util.concurrent.FutureTask;
-import java.util.concurrent.TimeUnit;
 
 import micro.com.microblog.entity.Blog;
 import micro.com.microblog.mvc.IBaseListUIView;
 import micro.com.microblog.parser.IBlogParser;
 import micro.com.microblog.utils.ComUtils;
-import micro.com.microblog.utils.Config;
 import micro.com.microblog.utils.DBDataUtils;
-import micro.com.microblog.utils.UIUtils;
 import rx.Observable;
-import rx.Observer;
 import rx.Subscriber;
-import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
-import rx.functions.Action2;
 import rx.schedulers.Schedulers;
 
 /**
@@ -29,7 +21,7 @@ import rx.schedulers.Schedulers;
 public class UserCollectionPresenter extends BaseListPresenter<IBaseListUIView<Blog>> {
 
     @Override
-    public void getToRequest(final boolean isFirstTime, IBlogParser mBlogParser, final int mCurrentPageSize) {
+    public void getToRequest(final boolean isFirstTime, IBlogParser mBlogParser,final int mCurrentPage, final int currentTotal) {
 
         /*Subscription sub = */
         Observable.create(new Observable.OnSubscribe<List<Blog>>() {
@@ -37,7 +29,7 @@ public class UserCollectionPresenter extends BaseListPresenter<IBaseListUIView<B
             public void call(Subscriber<? super List<Blog>> subscriber) {
                 List<Blog> blogList = null;
                 try {
-                    blogList = DBDataUtils.getUserCollectBlog(ComUtils.PAGE_SIZE, ComUtils.PAGE_SIZE * (mCurrentPageSize - 1));
+                    blogList = DBDataUtils.getUserCollectBlog(ComUtils.PAGE_SIZE, ComUtils.PAGE_SIZE * (mCurrentPage - 1));
 
                 } catch (Exception e) {
                     subscriber.onError(e);

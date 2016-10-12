@@ -74,7 +74,7 @@ public interface BaseURL {
      * @return
      */
     @GET("blog")
-    Observable<String> getOSChinaArticle(@Query("type") int type , @Query("p") int p) ;
+    Observable<String> getOSChinaArticle(@Query("classification") String classification , @Query("p") int p) ;
 
     /**
      * 获取网页详细内容

@@ -9,7 +9,6 @@ import micro.com.microblog.mvc.IBaseListUIView;
 import micro.com.microblog.parser.IBlogParser;
 import micro.com.microblog.utils.LogUtils;
 import rx.Observable;
-import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 import rx.functions.Func1;
@@ -21,10 +20,10 @@ import rx.schedulers.Schedulers;
 public class InfoQPresenter extends BaseListPresenter<IBaseListUIView<Blog>> {
 
     @Override
-    public void getToRequest(final boolean isFirstTime, final IBlogParser mBlogParser, int mCurrentPageSize) {
+    public void getToRequest(final boolean isFirstTime, final IBlogParser mBlogParser, int mCurrentPage, int currentTotal) {
         RetrofitUtils.
                 getInstance(BaseURL.INFOQ_PATH,BaseURL.class).
-                getInfoQArticle(12*(mCurrentPageSize-1)).
+                getInfoQArticle(12*(mCurrentPage -1)).
                 flatMap(new Func1<String, Observable<List<Blog>>>(){
             @Override
             public Observable<List<Blog>> call(String s) {

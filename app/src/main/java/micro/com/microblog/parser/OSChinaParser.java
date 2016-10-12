@@ -40,19 +40,21 @@ public class OSChinaParser implements IBlogParser {
         List<Blog> _blogList = new ArrayList<>();
         if (!TextUtils.isEmpty(htmlStr)) {
             Document doc = Jsoup.parse(htmlStr);
-            Element rootElement = doc.getElementById("RecentBlogs").getElementsByClass("BlogList").get(0);
+            Element rootElement = doc.getElementById("topsOfRecommend");
             if (null == rootElement) return _blogList;
 
-            Elements listElements = rootElement.select("li");
+            Elements listElements = rootElement.getElementsByClass("item");
             if (null == listElements || listElements.isEmpty()) return _blogList;
 
             Blog b;
             for (Element el : listElements) {
-                String title = el.select("h3").get(0).select("a").get(0).text();
-                String link = el.select("h3").get(0).select("a").get(0).attr("href");
+                Element innerElement = el.getElementsByClass("box-aw").get(0);
 
-                String desc = el.select("p").get(0).text();
-                String author = el.getElementsByClass("date").text();
+                String title = innerElement.select("a").get(0).text();
+                String link = el.select("a").get(0).attr("href");
+
+                String desc = el.select("section").get(0).text();
+                String author = el.select("footer").get(0).text();
 
                 LogUtils.d("title:" + title);
                 LogUtils.d("link:" + link);
@@ -66,8 +68,8 @@ public class OSChinaParser implements IBlogParser {
                 b.description = desc;
                 b.link = link;
                 b.articleType = ArticleType.OSCHINA;
-                b.hasRead = DBDataUtils.userHasReadArticle(title) ;
-                b.hasCollect = DBDataUtils.userHasCollection(title) ;
+                b.hasRead = DBDataUtils.userHasReadArticle(title);
+                b.hasCollect = DBDataUtils.userHasCollection(title);
 
 
                 _blogList.add(b);
@@ -79,40 +81,40 @@ public class OSChinaParser implements IBlogParser {
 
     @Override
     public List<Blog> getSearchBlogList(int type, String htmlStr) {
-        List<Blog> blogList = new ArrayList<>() ;
-        if(!TextUtils.isEmpty(htmlStr)) {
-            Document document = Jsoup.parse(htmlStr) ;
-            Element rootElement = document.getElementById("SearchResults") ;
-            if(null != rootElement) {
-                 Element resultElement =  rootElement.getElementById("results") ;
-                 Elements targetElements = resultElement.getElementsByClass("obj_type_3") ;
+        List<Blog> blogList = new ArrayList<>();
+        if (!TextUtils.isEmpty(htmlStr)) {
+            Document document = Jsoup.parse(htmlStr);
+            Element rootElement = document.getElementById("SearchResults");
+            if (null != rootElement) {
+                Element resultElement = rootElement.getElementById("results");
+                Elements targetElements = resultElement.getElementsByClass("obj_type_3");
 
-                Blog blog ;
-                 if(null != targetElements && !targetElements.isEmpty()) {
-                     for(Element e : targetElements) {
-                         blog = new Blog() ;
-                         String title = e.select("h3").get(0).select("a").get(0).text();
-                         String link = e.getElementsByClass("url").get(0).text() ;
-                         String desc = e.getElementsByClass("outline").get(0).text() ;
-                         String publishTime = e.getElementsByClass("date").get(0).text() ;
-                         String author = e.getElementsByClass("date").get(0).select("a").get(0).text().replace("@","") ;
+                Blog blog;
+                if (null != targetElements && !targetElements.isEmpty()) {
+                    for (Element e : targetElements) {
+                        blog = new Blog();
+                        String title = e.select("h3").get(0).select("a").get(0).text();
+                        String link = e.getElementsByClass("url").get(0).text();
+                        String desc = e.getElementsByClass("outline").get(0).text();
+                        String publishTime = e.getElementsByClass("date").get(0).text();
+                        String author = e.getElementsByClass("date").get(0).select("a").get(0).text().replace("@", "");
 
-                         LogUtils.d("title:" +title);
-                         LogUtils.d("link:" + link);
-                         LogUtils.d("desc:" + desc);
-                         LogUtils.d("publishTime:" + publishTime);
-                         LogUtils.d("author:" + author);
+                        LogUtils.d("title:" + title);
+                        LogUtils.d("link:" + link);
+                        LogUtils.d("desc:" + desc);
+                        LogUtils.d("publishTime:" + publishTime);
+                        LogUtils.d("author:" + author);
 
-                         blog.title = title ;
-                         blog.link = link ;
-                         blog.description = desc ;
-                         blog.publishTime = publishTime ;
-                         blog.author = author ;
-                         blog.articleType = ArticleType.OSCHINA ;
+                        blog.title = title;
+                        blog.link = link;
+                        blog.description = desc;
+                        blog.publishTime = publishTime;
+                        blog.author = author;
+                        blog.articleType = ArticleType.OSCHINA;
 
-                         blogList.add(blog) ;
-                     }
-                 }
+                        blogList.add(blog);
+                    }
+                }
             }
         }
 
@@ -121,34 +123,34 @@ public class OSChinaParser implements IBlogParser {
 
     @Override
     public String getBlogContent(int type, String strHtml) {
-        Document document = Jsoup.parse(strHtml) ;
+        Document document = Jsoup.parse(strHtml);
         Element bodyElement = document.getElementsByClass("blog-content").get(0);
 
         Element headElement = bodyElement.getElementsByClass("blog-heading").get(0);
-        headElement.getElementsByClass("layout-right").remove() ;
-        headElement.getElementsByClass("layout-column").remove() ;
+        headElement.getElementsByClass("layout-right").remove();
+        headElement.getElementsByClass("layout-column").remove();
 
-        bodyElement.getElementsByClass("blog-opr").remove() ;
-        bodyElement.getElementsByClass("operate").remove() ;
+        bodyElement.getElementsByClass("blog-opr").remove();
+        bodyElement.getElementsByClass("operate").remove();
 
         Elements elements = bodyElement.select("pre");
-        for(Element codeNode : elements) {
+        for (Element codeNode : elements) {
             codeNode.tagName("pre");
-            codeNode.attr("name","code") ;
-            codeNode.html(codeNode.text()) ;
+            codeNode.attr("name", "code");
+            codeNode.html(codeNode.text());
         }
 
-        Elements codeElements = bodyElement.select("pre[name=code]") ;
-        for(Element codeNode :codeElements) {
-            codeNode.attr("class","brush:java;gutter:false") ;
+        Elements codeElements = bodyElement.select("pre[name=code]");
+        for (Element codeNode : codeElements) {
+            codeNode.attr("class", "brush:java;gutter:false");
         }
 
         Elements imgElements = bodyElement.getElementsByTag("img");
-        for(Element img : imgElements) {
-            img.attr("width","auto");
-            img.attr("style","max-width:100%") ;
+        for (Element img : imgElements) {
+            img.attr("width", "auto");
+            img.attr("style", "max-width:100%");
         }
-        return JsoupUtils.sHtmlFormat.replace(JsoupUtils.CONTENT_HOLDER,bodyElement.html());
+        return JsoupUtils.sHtmlFormat.replace(JsoupUtils.CONTENT_HOLDER, bodyElement.html());
     }
 
     @Override

@@ -6,12 +6,9 @@ import micro.com.microblog.entity.Blog;
 import micro.com.microblog.http.RetrofitUtils;
 import micro.com.microblog.http.url.BaseURL;
 import micro.com.microblog.mvc.IBaseListUIView;
-import micro.com.microblog.mvc.presenter.BaseListPresenter;
 import micro.com.microblog.parser.IBlogParser;
-import micro.com.microblog.parser.ITeyeParser;
 import micro.com.microblog.utils.LogUtils;
 import rx.Observable;
-import rx.Subscriber;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
@@ -24,11 +21,11 @@ import rx.schedulers.Schedulers;
 public class ITeyePresenter extends BaseListPresenter<IBaseListUIView<Blog>> {
 
     @Override
-    public void getToRequest(final boolean isFirstTime, final IBlogParser mBlogParser, int mcurrentPage) {
+    public void getToRequest(final boolean isFirstTime, final IBlogParser mBlogParser, int mCurrentPage, int mCurrentTotal) {
 
        Subscription sub =  RetrofitUtils.
                 getInstance(BaseURL.ITEYE_PATH,BaseURL.class).
-                getITEyeArticle(mcurrentPage).
+                getITEyeArticle(mCurrentPage).
                 flatMap(new Func1<String, Observable<List<Blog>>>(){
                     @Override
                     public Observable<List<Blog>> call(String s) {

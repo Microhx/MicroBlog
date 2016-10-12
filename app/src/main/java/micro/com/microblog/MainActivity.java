@@ -4,6 +4,7 @@ import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -80,10 +81,10 @@ public class MainActivity extends BaseActivity {
                 enterActivity(UserSettingActivity.class);
                 break;
         }
-
         //关闭菜单
         drawerlayout.closeDrawers();
     }
+
 
     @Override
     protected int getContentLayoutId() {

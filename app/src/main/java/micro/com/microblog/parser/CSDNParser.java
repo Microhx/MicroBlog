@@ -12,6 +12,7 @@ import java.util.List;
 
 import micro.com.microblog.adapter.ArticleType;
 import micro.com.microblog.entity.Blog;
+import micro.com.microblog.entity.HtmlContent;
 import micro.com.microblog.utils.DBDataUtils;
 import micro.com.microblog.utils.FileUtils;
 import micro.com.microblog.utils.JsoupUtils;
@@ -119,7 +120,9 @@ public class CSDNParser implements IBlogParser {
 
 
     @Override
-    public String getBlogContent(int type, String strHtml) {
+    public HtmlContent getBlogContent(int type, String strHtml) {
+        HtmlContent htmlContent = new HtmlContent() ;
+
         Document doc = Jsoup.parse(strHtml) ;
 
         Element rootElement = doc.getElementById("container") ;
@@ -170,10 +173,14 @@ public class CSDNParser implements IBlogParser {
         for(Element img : imgElements) {
             img.attr("width","auto%") ;
             img.attr("style","max-width:100%") ;
+            String imgSrc = img.attr("src");
+            img.attr("onclick" , "javascript:photo.showImg('"+imgSrc+"')") ;
+            htmlContent.addPhoto(imgSrc);
         }
 
+        htmlContent.mContent = JsoupUtils.sHtmlFormat.replace(JsoupUtils.CONTENT_HOLDER,detailElement.html()) ;
 
-        return JsoupUtils.sHtmlFormat.replace(JsoupUtils.CONTENT_HOLDER,detailElement.html());
+        return htmlContent;
     }
 
     @Override

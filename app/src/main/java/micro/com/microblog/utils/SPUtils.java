@@ -15,6 +15,9 @@ public class SPUtils {
      */
     public static final String SOFT_INPUT_HEIGHT = "soft_input_height";
 
+    public static final String BLOG_SEARCH_TYPE = "blog_search_type" ;
+
+
     private static SharedPreferences mSp;
 
 
@@ -49,6 +52,8 @@ public class SPUtils {
 
     public static void saveStringSet(String s, HashSet<String> newCookies) {
         getSp().edit().putStringSet(s, newCookies).commit();
-
     }
+
+
+
 }

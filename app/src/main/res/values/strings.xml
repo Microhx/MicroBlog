@@ -20,4 +20,8 @@
     <string name="search_hint">请输入关键字(Android,IOS,Java....)</string>
     <string name="dl_cancel">取消</string>
     <string name="data_error">加载失败</string>
+    <string name="str_save">保存</string>
+    <string name="download_success">文件下载成功，保存在MicroBlog文件夹下</string>
+    <string name="download_error">下载失败，请稍候重试</string>
+    <string name="download_start">开始下载</string>
 </resources>

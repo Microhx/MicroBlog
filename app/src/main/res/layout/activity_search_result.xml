@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
+              android:background="@color/normal_white_color"
               android:orientation="vertical">
 
     <LinearLayout
@@ -11,18 +13,26 @@
         android:background="@color/app_theme_color_day"
         android:orientation="horizontal">
 
+        <ImageView
+            android:id="@+id/iv_search_type"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:padding="8dp"
+            android:src="@drawable/down"/>
+
         <EditText
             android:id="@+id/search_edit_text"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginBottom="7dp"
-            android:layout_marginLeft="12dp"
             android:layout_marginTop="5dp"
             android:layout_weight="1"
             android:background="@drawable/search_edittext_background"
             android:drawableLeft="@drawable/ico_search_x"
             android:drawablePadding="4dp"
             android:hint="@string/search_hint"
+            android:imeOptions="actionSearch"
             android:paddingBottom="4dp"
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
@@ -42,9 +52,78 @@
 
     </LinearLayout>
 
-    <micro.com.microblog.widget.CustomerRecyclerView
-        android:id="@+id/custom_view"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent">
+
+        <micro.com.microblog.widget.CustomerRecyclerView
+            android:id="@+id/custom_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <LinearLayout
+            android:id="@+id/ll_search_order"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/day_one_text_color"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <micro.com.microblog.widget.SearchItemView
+                android:id="@+id/item_all"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:search_str="搜索全部"/>
+
+            <View
+                style="@style/searchItem"/>
+
+            <micro.com.microblog.widget.SearchItemView
+                android:id="@+id/item_csdn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:search_choose="true"
+                app:search_str="搜索CSDN"/>
+
+            <View
+                style="@style/searchItem"/>
+
+            <micro.com.microblog.widget.SearchItemView
+                android:id="@+id/item_jcc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:search_str="搜索泡在网上的日子"/>
+
+            <View
+                style="@style/searchItem"/>
+
+            <micro.com.microblog.widget.SearchItemView
+                android:id="@+id/item_oschina"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:search_str="搜索开源中国"/>
+
+            <View
+                style="@style/searchItem"/>
+
+            <micro.com.microblog.widget.SearchItemView
+                android:id="@+id/item_iteye"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:search_str="搜索ITEYE"/>
+
+            <View
+                style="@style/searchItem"/>
+
+            <micro.com.microblog.widget.SearchItemView
+                android:id="@+id/item_infoq"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:search_str="搜索INFOQ(国外网站，搜索较慢)"/>
+
+        </LinearLayout>
+
+    </FrameLayout>
+
 
 </LinearLayout>

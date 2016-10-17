@@ -1,9 +1,11 @@
 package micro.com.microblog;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Build;
 import android.view.Gravity;
 import android.view.View;
+import android.webkit.JavascriptInterface;
 
 import com.tencent.mm.sdk.openapi.BaseReq;
 import com.tencent.mm.sdk.openapi.BaseResp;
@@ -18,8 +20,10 @@ import java.util.Stack;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import micro.com.microblog.adapter.ArticleType;
 import micro.com.microblog.entity.Blog;
 import micro.com.microblog.entity.EventBean;
+import micro.com.microblog.entity.HtmlContent;
 import micro.com.microblog.manager.ShareManager;
 import micro.com.microblog.mvc.presenter.DetailContentPresenter;
 import micro.com.microblog.parser.IBlogParser;
@@ -28,12 +32,14 @@ import micro.com.microblog.utils.DBDataUtils;
 import micro.com.microblog.utils.FileUtils;
 import micro.com.microblog.utils.LogUtils;
 import micro.com.microblog.utils.ToUtils;
+import micro.com.microblog.widget.MarkdownView;
 import micro.com.microblog.widget.OperationWindow;
 import micro.com.microblog.widget.PublicHeadLayout;
 
 /**
  * Created by guoli on 2016/9/16.
  */
+@SuppressLint("SetJavaScriptEnabled")
 public class ArticleDetailActivity extends BaseMultiLayerRequestActivity implements
         OperationWindow.OperationClickListener,
         IWXAPIEventHandler {
@@ -43,6 +49,7 @@ public class ArticleDetailActivity extends BaseMultiLayerRequestActivity impleme
     PublicHeadLayout title;
     WebView tencent_webview;
 
+    MarkdownView markdownView;
     /**
      * 解析文章类
      */
@@ -55,11 +62,6 @@ public class ArticleDetailActivity extends BaseMultiLayerRequestActivity impleme
      */
     boolean hasCollection;
 
-    /**
-     * 当前所访问的地址
-     */
-    private String mCurrentUrl;
-
     private Stack<String> mUrlContainer;
 
     private DetailContentPresenter mPresenter;
@@ -67,13 +69,12 @@ public class ArticleDetailActivity extends BaseMultiLayerRequestActivity impleme
     /**
      * 文章所在Data中的位置
      */
-    private int mArticlePosition ;
-
+    private int mArticlePosition;
 
     /**
      * 经过处理的网页内容
      */
-    private String mWebContent;
+    private HtmlContent mWebContent;
 
     @Override
     protected int getContentLayoutId() {
@@ -89,18 +90,24 @@ public class ArticleDetailActivity extends BaseMultiLayerRequestActivity impleme
     protected void initIntent(Intent intent) {
         if (null != intent) {
             mCurrentBlog = (Blog) intent.getSerializableExtra(PASS_ARTICLE);
-            mArticlePosition = intent.getIntExtra("position",-1);
+            mArticlePosition = intent.getIntExtra("position", -1);
         }
 
-        if (null != mCurrentBlog) {
-            mBlogParser = ParserFactory.getParserInstance(mCurrentBlog.articleType);
+        if (null == mCurrentBlog) {
+            LogUtils.d("blog is null");
+            showErrorPage();
+            return;
         }
+
+        mBlogParser = ParserFactory.getParserInstance(mCurrentBlog.articleType);
     }
 
     @Override
     protected void initViewsAndData() {
         title = (PublicHeadLayout) findViewById(R.id.title);
         tencent_webview = (WebView) findViewById(R.id.tencent_webview);
+        markdownView = (MarkdownView) findViewById(R.id.markdownView);
+
         super.initViewsAndData();
 
         initViews();
@@ -125,32 +132,45 @@ public class ArticleDetailActivity extends BaseMultiLayerRequestActivity impleme
 
     private void initViews() {
         mUrlContainer = new Stack<>();
+        mUrlContainer.add(mCurrentBlog.link);
 
-        tencent_webview.setWebViewClient(new TencentWebViewClient());
-        tencent_webview.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
-        WebSettings webSetting = tencent_webview.getSettings();
-        webSetting.setJavaScriptEnabled(true);
-        webSetting.setDefaultTextEncodingName("UTF-8");
-        webSetting.setAppCacheEnabled(true);
-        webSetting.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
+        if (mCurrentBlog.articleType == ArticleType.OSCHINA) {
+            markdownView.setVisibility(View.VISIBLE);
+            tencent_webview.setVisibility(View.GONE);
+        } else {
+            markdownView.setVisibility(View.GONE);
+            tencent_webview.setVisibility(View.VISIBLE);
 
-        webSetting.setLoadsImagesAutomatically(Build.VERSION.SDK_INT >= 19);
-        //拦截图片的加载 网页加载完成后再去除拦截
-//        webSetting.setBlockNetworkImage(true);
-        //支持缩放
-        webSetting.setSupportZoom(true);
-        //webview读取设置的viewport 即pc版网页
-        webSetting.setUseWideViewPort(true);
-        //适应屏幕大小
-        webSetting.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NARROW_COLUMNS);
+            tencent_webview.setWebViewClient(new TencentWebViewClient());
+            tencent_webview.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+            WebSettings webSetting = tencent_webview.getSettings();
+            webSetting.setDefaultTextEncodingName("UTF-8");
+            webSetting.setAppCacheEnabled(true);
+            webSetting.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
+
+            webSetting.setLoadsImagesAutomatically(Build.VERSION.SDK_INT >= 19);
+            //拦截图片的加载 网页加载完成后再去除拦截
+            //webSetting.setBlockNetworkImage(true);
+            //支持缩放
+            webSetting.setSupportZoom(true);
+            //webview读取设置的viewport 即pc版网页
+            webSetting.setUseWideViewPort(true);
+            //适应屏幕大小
+            webSetting.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NARROW_COLUMNS);
+
+            webSetting.setJavaScriptEnabled(true);
+            webSetting.setAllowFileAccess(true);
+            tencent_webview.addJavascriptInterface(new ShowPhotoBean(),"photo");
+        }
+
     }
 
-    private OperationWindow mOperationWindow ;
+    private OperationWindow mOperationWindow;
 
     @OnClick(R.id.tv_msg)
     public void onOperation(View view) {
-        if(null == mOperationWindow) {
-            mOperationWindow = new OperationWindow(this,mCurrentBlog);
+        if (null == mOperationWindow) {
+            mOperationWindow = new OperationWindow(this, mCurrentBlog);
         }
 
         mOperationWindow.
@@ -168,9 +188,15 @@ public class ArticleDetailActivity extends BaseMultiLayerRequestActivity impleme
     @Override
     public void getDataSuccess(String msg) {
         mWebContent = mBlogParser.getBlogContent(0, msg);
-
         showTheTargetPage();
-        tencent_webview.loadDataWithBaseURL(null, mWebContent, "text/html", "utf-8", null);
+
+        System.out.println("---the content-->>- " + mWebContent);
+
+        if (mCurrentBlog.articleType == ArticleType.OSCHINA) {
+            markdownView.loadMarkdown(mWebContent.mContent,"file:///android_asset/markdown_css_themes/classic.css");
+        } else {
+            tencent_webview.loadDataWithBaseURL(null, mWebContent.mContent, "text/html", "utf-8", null);
+        }
     }
 
     /**
@@ -202,13 +228,14 @@ public class ArticleDetailActivity extends BaseMultiLayerRequestActivity impleme
         super.onActivityResult(requestCode, resultCode, data);
 
         //分享回调
-        ShareManager.getInstance().getTencentInstance().onActivityResult(requestCode,requestCode,data);
+        ShareManager.getInstance().getTencentInstance().onActivityResult(requestCode, requestCode, data);
     }
 
     private class TencentWebViewClient extends WebViewClient {
         @Override
         public boolean shouldOverrideUrlLoading(WebView webView, String url) {
             LogUtils.d("loadingUrl : " + url);
+            mUrlContainer.add(url);
 
             return super.shouldOverrideUrlLoading(webView, url);
         }
@@ -216,8 +243,19 @@ public class ArticleDetailActivity extends BaseMultiLayerRequestActivity impleme
 
     @Override
     public void onBackPressed() {
-        if(null != mOperationWindow && mOperationWindow.isShowing()) {
+        if (null != mOperationWindow && mOperationWindow.isShowing()) {
             mOperationWindow.dismiss();
+            return;
+        }
+
+        //网页深层次访问
+        if (mUrlContainer.size() > 1) {
+            mUrlContainer.pop();
+            if (mUrlContainer.size() == 1) {
+                tencent_webview.loadDataWithBaseURL(null, mWebContent.mContent, "text/html", "utf-8", null);
+            }
+            String url = mUrlContainer.peek();
+            tencent_webview.loadUrl(url);
             return;
         }
 
@@ -228,7 +266,7 @@ public class ArticleDetailActivity extends BaseMultiLayerRequestActivity impleme
     protected void onResume() {
         super.onResume();
 
-        if(null != mCurrentBlog) {
+        if (null != mCurrentBlog) {
             mCurrentBlog.setType(Blog.READ_TYPE);
             DBDataUtils.addUserReadBlog(mCurrentBlog);
         }
@@ -247,25 +285,36 @@ public class ArticleDetailActivity extends BaseMultiLayerRequestActivity impleme
     }
 
     private void sendMessage() {
-        EventBean bean = new EventBean() ;
-        bean.type = mCurrentBlog.articleType ;
-        bean.msg = "" ;
-        bean.isCollect = hasCollection ;
-        bean.isRead = true ;
-        bean.position = mArticlePosition ;
+        EventBean bean = new EventBean();
+        bean.type = mCurrentBlog.articleType;
+        bean.msg = "";
+        bean.isCollect = hasCollection;
+        bean.isRead = true;
+        bean.position = mArticlePosition;
 
         EventBus.getDefault().post(bean);
     }
 
-    /**==============微信回调======================**/
+    /**
+     * ==============微信回调======================
+     **/
     @Override
-    public void onReq(BaseReq baseReq) {
-
-    }
+    public void onReq(BaseReq baseReq) {}
 
     @Override
     public void onResp(BaseResp baseResp) {
 
     }
 
+
+    //用于JS与webView交互的内部类
+    //点击图片，可以看到全屏
+    private final class ShowPhotoBean {
+
+        @JavascriptInterface
+        public void showImg(String msg) {
+            int getPosition = mWebContent.checkLocation(msg) ;
+            ShowArticleImgActivity.startThisActivity(ArticleDetailActivity.this,mWebContent.photoList,getPosition);
+        }
+    }
 }

@@ -10,9 +10,22 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
-    <com.tencent.smtt.sdk.WebView
-        android:id="@+id/tencent_webview"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent">
+
+        <com.tencent.smtt.sdk.WebView
+            android:id="@+id/tencent_webview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <micro.com.microblog.widget.MarkdownView
+            android:id="@+id/markdownView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"/>
+
+
+    </FrameLayout>
 
 </LinearLayout>

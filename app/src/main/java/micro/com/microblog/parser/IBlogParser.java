@@ -3,6 +3,7 @@ package micro.com.microblog.parser;
 import java.util.List;
 
 import micro.com.microblog.entity.Blog;
+import micro.com.microblog.entity.HtmlContent;
 
 /**
  * Created by guoli on 2016/9/2.
@@ -28,13 +29,12 @@ public interface IBlogParser {
      */
     List<Blog> getSearchBlogList(int type , String htmlStr) ;
 
-
     /**
      * 从网页源码中解析出博客正文
      * @param strHtml
      * @return
      */
-    String getBlogContent(int type, String strHtml);
+    HtmlContent getBlogContent(int type, String strHtml);
 
     String getBlogContentUrl(String... strs);
 

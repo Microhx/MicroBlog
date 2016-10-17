@@ -70,42 +70,35 @@ public class UserSearchPresenter extends BasePresenter<ISearchListUIView> {
      * 开始搜索
      *
      * @param keyWords
+     * @param type
      */
-    public void startToSearch(final String keyWords) {
-        System.out.println("---keywords---" + keyWords);
+    public void startToSearch(final String keyWords, int type) {
+        if(type == 0 ) {
+            searchCSDN(keyWords);
 
-        RetrofitUtils.
-                getInstance(BaseURL.SEARCH_CSDN, BaseURL.class).
-                searchCSDNContent(keyWords, "blog", "", "", null).
-                map(new Func1<String, List<Blog>>() {
-                    @Override
-                    public List<Blog> call(String s) {
-                        return ParserFactory.getParserInstance(ArticleType.CSDN).getSearchBlogList(0, s);
-                    }
-                }).subscribeOn(Schedulers.io()).subscribe(new MyAction1(), new MyAction2());
+            searchOSChina(keyWords);
 
-        RetrofitUtils.
-                getInstance(BaseURL.SEARCH_OSCHINA, BaseURL.class).
-                searchOSChinaContent(keyWords, "blog", "pjukATYB").
-                map(new Func1<String, List<Blog>>() {
-                    @Override
-                    public List<Blog> call(String s) {
-                        return ParserFactory.getParserInstance(ArticleType.OSCHINA).getSearchBlogList(0, s);
-                    }
-                }).subscribeOn(Schedulers.io()).subscribe(new MyAction1(), new MyAction2()) ;
+            searchITeye(keyWords);
 
-        RetrofitUtils.
-                getInstance(BaseURL.ITEYE_PATH, BaseURL.class).
-                searchItEyeContent(keyWords, "blog").
-                map(new Func1<String, List<Blog>>() {
-                    @Override
-                    public List<Blog> call(String s) {
-                        return ParserFactory.getParserInstance(ArticleType.ITEYE).getSearchBlogList(0, s);
-                    }
-                }).subscribeOn(Schedulers.io()).subscribe(new MyAction1(), new MyAction2()) ;
+            //INFOQ search
+            //step1: get the sst :
+            searchInfoQ(keyWords);
+        }else if(type == 1) {
+            searchCSDN(keyWords);
+        }else if(type == 2) {
 
-        //INFOQ search
-        //step1: get the sst :
+        }else if(type == 3) {
+            searchOSChina(keyWords);
+        }else if(type == 4) {
+            searchITeye(keyWords);
+        }else if(type == 5) {
+            searchInfoQ(keyWords);
+        }
+
+
+    }
+
+    private void searchInfoQ(final String keyWords) {
         RetrofitUtils.
                 getSearchInstance("http://www.infoq.com/cn/", BaseURL.class).
                 searchInfoQSST().
@@ -126,6 +119,42 @@ public class UserSearchPresenter extends BasePresenter<ISearchListUIView> {
                         mHandler.sendEmptyMessage(-1) ;
                     }
                 });
+    }
+
+    private void searchITeye(String keyWords) {
+        RetrofitUtils.
+                getInstance(BaseURL.ITEYE_PATH, BaseURL.class).
+                searchItEyeContent(keyWords, "blog").
+                map(new Func1<String, List<Blog>>() {
+                    @Override
+                    public List<Blog> call(String s) {
+                        return ParserFactory.getParserInstance(ArticleType.ITEYE).getSearchBlogList(0, s);
+                    }
+                }).subscribeOn(Schedulers.io()).subscribe(new MyAction1(), new MyAction2()) ;
+    }
+
+    private void searchOSChina(String keyWords) {
+        RetrofitUtils.
+                getInstance(BaseURL.SEARCH_OSCHINA, BaseURL.class).
+                searchOSChinaContent(keyWords, "blog", "pjukATYB").
+                map(new Func1<String, List<Blog>>() {
+                    @Override
+                    public List<Blog> call(String s) {
+                        return ParserFactory.getParserInstance(ArticleType.OSCHINA).getSearchBlogList(0, s);
+                    }
+                }).subscribeOn(Schedulers.io()).subscribe(new MyAction1(), new MyAction2()) ;
+    }
+
+    private void searchCSDN(String keyWords) {
+        RetrofitUtils.
+                getInstance(BaseURL.SEARCH_CSDN, BaseURL.class).
+                searchCSDNContent(keyWords, "blog", "", "", null).
+                map(new Func1<String, List<Blog>>() {
+                    @Override
+                    public List<Blog> call(String s) {
+                        return ParserFactory.getParserInstance(ArticleType.CSDN).getSearchBlogList(0, s);
+                    }
+                }).subscribeOn(Schedulers.io()).subscribe(new MyAction1(), new MyAction2());
     }
 
     private void searchInfoQ(String keyWords, String sst) {

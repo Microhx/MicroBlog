@@ -11,4 +11,8 @@ public class RandomUtils {
         return new Random().nextInt(maxIndex) ;
     }
 
+    public static String getRandomFileName() {
+        return System.currentTimeMillis() +"_" +getRandomInt(2000) ;
+
+    }
 }

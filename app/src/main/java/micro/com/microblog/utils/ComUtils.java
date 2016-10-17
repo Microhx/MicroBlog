@@ -107,5 +107,8 @@ public class ComUtils {
 
     }
 
+    public static boolean CollectionIndex(Collection<?> coll , int index) {
+        return index >= 0 && index < coll.size() ;
+    }
 
 }

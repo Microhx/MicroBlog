@@ -78,6 +78,9 @@
         <!--用户设置-->
         <activity android:name=".UserSettingActivity" />
 
+        <!--显示新闻图片-->
+        <activity android:name=".ShowArticleImgActivity" />
+
 
     </application>
 

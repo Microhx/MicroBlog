@@ -25,7 +25,7 @@ import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
  */
 public class RetrofitUtils {
 
-    private static OkHttpClient mOkHttpClient = new OkHttpClient();
+    public static OkHttpClient mOkHttpClient = new OkHttpClient();
     private static OkHttpClient mSearchHttpClient = new OkHttpClient();
 
     private static Map<String, Retrofit.Builder> mContainer = new HashMap<>();
@@ -37,7 +37,8 @@ public class RetrofitUtils {
 
         mSearchHttpClient.newBuilder().
                 connectTimeout(200000, TimeUnit.SECONDS).
-                readTimeout(200000, TimeUnit.SECONDS).cookieJar(new CookieJar() {
+                readTimeout(200000, TimeUnit.SECONDS).
+                cookieJar(new CookieJar() {
 
             private final HashMap<HttpUrl, List<Cookie>> cookieStore = new HashMap<HttpUrl, List<Cookie>>();
             @Override

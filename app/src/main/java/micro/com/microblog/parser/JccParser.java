@@ -15,6 +15,7 @@ import java.util.List;
 
 import micro.com.microblog.adapter.ArticleType;
 import micro.com.microblog.entity.Blog;
+import micro.com.microblog.entity.HtmlContent;
 import micro.com.microblog.http.url.BaseURL;
 import micro.com.microblog.utils.DBDataUtils;
 import micro.com.microblog.utils.FileUtils;
@@ -74,8 +75,8 @@ public class JccParser implements IBlogParser {
                 b.author = author;
                 b.publishTime = publishTime;
                 b.articleType = ArticleType.PAOWANG;
-                b.hasRead = DBDataUtils.userHasReadArticle(title) ;
-                b.hasCollect = DBDataUtils.userHasCollection(title) ;
+                b.hasRead = DBDataUtils.userHasReadArticle(title);
+                b.hasCollect = DBDataUtils.userHasCollection(title);
 
 
                 _BlogList.add(b);
@@ -86,24 +87,36 @@ public class JccParser implements IBlogParser {
     }
 
     @Override
-    public String getBlogContent(int type, String strHtml) {
+    public HtmlContent getBlogContent(int type, String strHtml) {
         //strHtml = convertHtml(strHtml);
+        HtmlContent htmlContent = new HtmlContent();
 
         Document document = Jsoup.parse(strHtml);
         Element contentElement = document.getElementsByClass("arc_body").get(0);
-
         contentElement.getElementsByClass("runtimead").remove();
 
-        return JsoupUtils.sHtmlFormat.replace(JsoupUtils.CONTENT_HOLDER, contentElement.html());
+        //图片缩放
+        Elements imgElements = contentElement.getElementsByTag("img");
+        for (Element img : imgElements) {
+            img.attr("width", "auto%");
+            img.attr("style", "max-width:100%");
+            img.attr("src", BaseURL.JCC_PATH + img.attr("src"));
+
+            String imgSrc = img.attr("src");
+            img.attr("onclick", "javascript:photo.showImg('" + imgSrc + "')");
+            htmlContent.addPhoto(imgSrc);
+        }
+        htmlContent.mContent = JsoupUtils.sHtmlFormat.replace(JsoupUtils.CONTENT_HOLDER, contentElement.html());
+        return htmlContent;
     }
 
     private String convertHtml(String strHtml) {
         try {
-            return new String(strHtml.getBytes("UTF-8"), "GB2312") ;
+            return new String(strHtml.getBytes("UTF-8"), "GB2312");
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-        return "" ;
+        return "";
     }
 
     @Override

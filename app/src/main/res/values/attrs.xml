@@ -68,4 +68,10 @@
     </declare-styleable>
 
 
+    <declare-styleable name="SearchItemView" >
+        <attr name="search_str" format="string"/>
+        <attr name="search_choose" format="boolean" />
+
+    </declare-styleable>
+
 </resources>

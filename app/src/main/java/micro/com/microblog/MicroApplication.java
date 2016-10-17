@@ -3,6 +3,8 @@ package micro.com.microblog;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
+import android.os.Handler;
+import android.os.Looper;
 
 import com.tencent.smtt.sdk.QbSdk;
 
@@ -22,6 +24,8 @@ import micro.com.microblog.utils.LogUtils;
 public class MicroApplication extends Application {
     private static Context mContext;
 
+    public static Handler mHandler ;
+
     /**
      * activity栈
      */
@@ -40,6 +44,8 @@ public class MicroApplication extends Application {
          * eventBus注册
          */
         EventBus.getDefault().register(this);
+
+        mHandler = new Handler(Looper.getMainLooper()) ;
     }
 
     public static Context getAppContext() {

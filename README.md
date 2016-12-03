@@ -24,7 +24,6 @@
    大数据：http://www.infoq.com/cn/bigdata/articles/  
    运维：http://www.infoq.com/cn/operation/articles/
 
-
     ITEYE:
     资讯：http://www.iteye.com/news
     精华：http://www.iteye.com/magazines
@@ -33,35 +32,30 @@
 
     CSDN
     前端
-    http://geek.csdn.net/service/news/get_category_news_list?category_id=frontend& jsonpcallback=jQuery20309836559783031329_1479717830080&username=u013762572&from=20&size=20&type=category&_=1479717830081
-
+    http://geek.csdn.net/service/news/get_category_news_list?category_id=frontend& jsonpcallback=jQuery20309836559783031329_1479717830080&username=u013762572&from=20&size=20&type=category&_=1479717830081<br/>
    移动
-   http://geek.csdn.net/service/news/get_category_news_list?category_id=mobile&jsonpcallback=jQuery20301528046427485552_1479717874823&username=u013762572&from=0&size=20&type=category&_=1479717874824
-
+   http://geek.csdn.net/service/news/get_category_news_list?category_id=mobile&jsonpcallback=jQuery20301528046427485552_1479717874823&username=u013762572&from=0&size=20&type=category&_=1479717874824<br/>
    云计算
-   http://geek.csdn.net/service/news/get_category_news_list?category_id=cloud&jsonpcallback=jQuery20307511375457787082_1479717658917&username=u013762572&from=20&size=20&type=category&_=1479717658918
-
+   http://geek.csdn.net/service/news/get_category_news_list?category_id=cloud&jsonpcallback=jQuery20307511375457787082_1479717658917&username=u013762572&from=20&size=20&type=category&_=1479717658918<br/>
    大数据
-   http://geek.csdn.net/service/news/get_category_news_list?category_id=bigdata&jsonpcallback=jQuery20307133938887790177_1479717696246&username=u013762572&from=20&size=20&type=category&_=1479717696247
-
+   http://geek.csdn.net/service/news/get_category_news_list?category_id=bigdata&jsonpcallback=jQuery20307133938887790177_1479717696246&username=u013762572&from=20&size=20&type=category&_=1479717696247<br/>
    数据库
-   http://geek.csdn.net/service/news/get_category_news_list?category_id=database&jsonpcallback=jQuery20307188289349209822_1479717786436&username=u013762572&from=20&size=20&type=category&_=1479717786437
-
+   http://geek.csdn.net/service/news/get_category_news_list?category_id=database&jsonpcallback=jQuery20307188289349209822_1479717786436&username=u013762572&from=20&size=20&type=category&_=1479717786437<br/>
 
    泡在网上的日子：
-   综合资讯：http://www.jcodecraeer.com/plus/list.php?tid=4
-   程序设计：http://www.jcodecraeer.com/plus/list.php?tid=6
-   安卓开发：http://www.jcodecraeer.com/plus/list.php?tid=16
-   前端开发：http://www.jcodecraeer.com/plus/list.php?tid=5
-   IOS开发： http://www.jcodecraeer.com/plus/list.php?tid=27
-
+   综合资讯：http://www.jcodecraeer.com/plus/list.php?tid=4<br/>
+   程序设计：http://www.jcodecraeer.com/plus/list.php?tid=6<br/>
+   安卓开发：http://www.jcodecraeer.com/plus/list.php?tid=16<br/>
+   前端开发：http://www.jcodecraeer.com/plus/list.php?tid=5<br/>
+   IOS开发： http://www.jcodecraeer.com/plus/list.php?tid=27<br/>
+   
    OSC:
-   全部：https://www.oschina.net/action/ajax/get_more_recommend_blog?classification=0&p=2
-   移动  https://www.oschina.net/action/ajax/get_more_recommend_blog?classification=428602&p=2
-   前端：https://www.oschina.net/action/ajax/get_more_recommend_blog?classification=428612&p=2
-   服务器：https://www.oschina.net/action/ajax/get_more_recommend_blog?classification==428640&2
-   游戏开发：https://www.oschina.net/action/ajax/get_more_recommend_blog?classification=429511&p=2
-   编程语言：https://www.oschina.net/action/ajax/get_more_recommend_blog?classification=428609&p=2
+   全部：https://www.oschina.net/action/ajax/get_more_recommend_blog?classification=0&p=2<br/>
+   移动  https://www.oschina.net/action/ajax/get_more_recommend_blog?classification=428602&p=2<br/>
+   前端：https://www.oschina.net/action/ajax/get_more_recommend_blog?classification=428612&p=2<br/>
+   服务器：https://www.oschina.net/action/ajax/get_more_recommend_blog?classification==428640&2<br/>
+   游戏开发：https://www.oschina.net/action/ajax/get_more_recommend_blog?classification=429511&p=2<br/>
+   编程语言：https://www.oschina.net/action/ajax/get_more_recommend_blog?classification=428609&p=2<br/>
    
 # 4. other
    本人博客：<a href='http://blog.csdn.net/u013762572'>MicroHx</a>

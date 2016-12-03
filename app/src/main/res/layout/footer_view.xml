@@ -4,8 +4,6 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:gravity="center"
-              app:dayNightBackgroundAttr="dayNightBackground"
-              android:background="?attr/dayNightBackground"
               android:orientation="horizontal">
 
     <ProgressBar

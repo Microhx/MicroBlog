@@ -4,7 +4,7 @@
     <group>
         <item
             android:id="@+id/item_chat"
-            android:title="@string/str_chatting"/>
+            android:title="@string/str_search"/>
 
         <item
             android:id="@+id/item_collection"
@@ -25,10 +25,6 @@
             android:id="@+id/item_about_author"
             android:title="@string/str_about_author"
             />
-
-        <item
-            android:id="@+id/item_setting"
-            android:title="@string/str_setting"/>
 
     </group>
 

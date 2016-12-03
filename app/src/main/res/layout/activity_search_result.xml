@@ -56,10 +56,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <micro.com.microblog.widget.CustomerRecyclerView
+        <micro.com.microblog.widget.recyclerview.IRecyclerView
             android:id="@+id/custom_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            app:loadMoreEnabled="false"
+            app:refreshEnabled="false"
+            app:refreshHeaderLayout="@layout/layout_irecyclerview_refresh_header"/>
 
         <LinearLayout
             android:id="@+id/ll_search_order"

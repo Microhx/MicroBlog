@@ -1,6 +1,8 @@
 package micro.com.microblog.mvc.presenter;
 
-import micro.com.microblog.adapter.ArticleType;
+import android.text.TextUtils;
+
+import micro.com.microblog.entity.ArticleType;
 import micro.com.microblog.http.RetrofitUtils;
 import micro.com.microblog.http.url.BaseURL;
 import micro.com.microblog.mvc.IDetailContentView;
@@ -24,9 +26,16 @@ public class DetailContentPresenter extends BasePresenter<IDetailContentView> {
     public void loadData(String link, ArticleType articleType) {
         LogUtils.d("request link :" + link);
         getCurrentView().showLoadingPage();
+        if (TextUtils.isEmpty(link) || !link.contains("/")) {
+            getCurrentView().showErrorPage();
+            return;
+        }
 
         String base = link.substring(0, link.lastIndexOf("/") + 1);
         String path = link.substring(link.lastIndexOf("/") + 1);
+
+        LogUtils.d("base:" + base);
+        LogUtils.d("path:" + path);
 
         BaseURL _baseUrl;
         if (articleType == ArticleType.PAOWANG) {
@@ -37,25 +46,26 @@ public class DetailContentPresenter extends BasePresenter<IDetailContentView> {
 
         Subscription sub =
                 _baseUrl.getWebContent(path).
-                subscribeOn(Schedulers.io()).
-                observeOn(AndroidSchedulers.mainThread()).
-                subscribe(new Subscriber<String>() {
-                    @Override
-                    public void onCompleted() {}
+                        subscribeOn(Schedulers.io()).
+                        observeOn(AndroidSchedulers.mainThread()).
+                        subscribe(new Subscriber<String>() {
+                            @Override
+                            public void onCompleted() {
+                            }
 
-                    @Override
-                    public void onError(Throwable e) {
-                        LogUtils.d("request error : " + e);
-                        getCurrentView().showErrorPage();
-                    }
+                            @Override
+                            public void onError(Throwable e) {
+                                LogUtils.d("request error : " + e);
+                                getCurrentView().showErrorPage();
+                            }
 
-                    @Override
-                    public void onNext(String s) {
-                        // LogUtils.d("the request data length : " + s.length());
-                        // LogUtils.d("data :" + s);
-                        getCurrentView().getDataSuccess(s);
-                    }
-                });
+                            @Override
+                            public void onNext(String s) {
+                                // LogUtils.d("the request data length : " + s.length());
+                                // LogUtils.d("data :" + s);
+                                getCurrentView().getDataSuccess(s);
+                            }
+                        });
 
         addSubscription(sub);
     }

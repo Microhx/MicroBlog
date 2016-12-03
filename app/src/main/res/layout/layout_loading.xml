@@ -8,7 +8,8 @@
         style="@android:style/Holo.Light.ButtonBar"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:layout_centerInParent="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="200dp"
         android:indeterminateDrawable="@drawable/progressbar_larger"/>
 
     <TextView

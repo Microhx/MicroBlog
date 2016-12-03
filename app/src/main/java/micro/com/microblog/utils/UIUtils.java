@@ -1,15 +1,14 @@
 package micro.com.microblog.utils;
 
-import android.app.Activity;
-import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.support.design.widget.TabLayout;
 import android.util.DisplayMetrics;
+import android.view.View;
 
-import micro.com.microblog.BaseActivity;
-import micro.com.microblog.MicroApplication;
-import micro.com.microblog.R;
+import micro.com.microblog.base.activity.BaseActivity;
+import micro.com.microblog.base.activity.MicroApplication;
 
 /**
  * Created by guoli on 2016/9/2.
@@ -57,12 +56,43 @@ public class UIUtils {
         return displayMetrics.widthPixels;
     }
 
+    public static int getScreenHeight(Context ctx) {
+        Resources resources = ctx.getResources() ;
+        DisplayMetrics displayMetrics = resources.getDisplayMetrics() ;
+        return displayMetrics.heightPixels ;
+    }
+
+
     public static String getString(int intValue) {
         return UIUtils.getAppContext().getString(intValue);
     }
 
     public static int getColor(int color) {
         return UIUtils.getAppContext().getResources().getColor(color) ;
-
     }
+
+    public static void setTabScrollLayout(android.support.design.widget.TabLayout layout) {
+        int tabLayoutWidth = calculateTabWith(layout) ;
+        int screenWidth = getScreenWidth(UIUtils.getAppContext()) ;
+        if(tabLayoutWidth > screenWidth) {
+            layout.setTabMode(TabLayout.MODE_SCROLLABLE);
+        }else {
+            layout.setTabMode(TabLayout.MODE_FIXED);
+        }
+    }
+
+    private static int calculateTabWith(TabLayout layout) {
+        int totalWidth  = 0 ;
+        int count = layout.getTabCount() ;
+        for(int i = 0 ; i < count ; i++) {
+            View childView = layout.getChildAt(i);
+            if(null == childView) continue;
+
+            //通知父View进行测量
+            childView.measure(0,0);
+            totalWidth += childView.getMeasuredWidth() ;
+        }
+        return totalWidth ;
+    }
+
 }

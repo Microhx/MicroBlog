@@ -13,18 +13,27 @@ import rx.Observable;
 public interface BaseURL {
 
     //INFOQ网址[目前全为移动端]
-    String INFOQ_PATH = "http://www.infoq.com/cn/mobile/";
+    String INFOQ_PATH = "http://www.infoq.com/cn/";
 
     //CSDN网址
-    String CSDN_PATH = "http://blog.csdn.net/type/";
+    String CSDN_PATH = "http://geek.csdn.net/";
+
+    //CSDN ajax请求算法
+    String GEEK_CSDN_PATH = "http://geek.csdn.net/service/news/";
+
+    String ITEYE_PATH_SHORT = "http://www.iteye.com";
 
     //ITEYE网址
-    String ITEYE_PATH = "http://www.iteye.com/";
+    String ITEYE_PATH = ITEYE_PATH_SHORT + "/";
 
     //泡在网上的日子[移动版块]
     String JCC_PATH = "http://www.jcodecraeer.com/";
 
+    //开源中国 [使用ajax请求]
     String OS_CHINA_PATH = "https://www.oschina.net/";
+
+    //开源中国 [使用ajax请求]
+    String OS_CHINA_PATH_AJAX = "https://www.oschina.net/action/ajax/";
 
     //CSDN搜索区
     String SEARCH_CSDN = "http://so.csdn.net/so/search/";
@@ -39,11 +48,17 @@ public interface BaseURL {
     /**
      * 获取CSDN文章链接
      *
-     * @param page
      * @return
+     * @
      */
-    @GET("index.html")
-    Observable<String> getCSDNArticle(@Query("page") int page);
+    @GET("get_category_news_list")
+    Observable<String> getCSDNArticle(@Query("category_id") String category_id,
+                                      @Query("jsonpcallback") String jsonpcallback,
+                                      @Query("username") String username,
+                                      @Query("from") String from,
+                                      @Query("size") String size,
+                                      @Query("type") String type,
+                                      @Query("_") String other);
 
     /**
      * ITeye文章链接
@@ -51,8 +66,18 @@ public interface BaseURL {
      * @param page
      * @return
      */
-    @GET("blogs")
-    Observable<String> getITEyeArticle(@Query("page") int page);
+    @GET("{type}")
+    Observable<String> getITEyeArticle(@Path("type") String path, @Query("page") int page);
+
+    /**
+     * ITEye 专栏笔记 位于blog之下
+     *
+     * @param path
+     * @return
+     */
+    @GET("{path}")
+    Observable<String> getITEyeSubject(@Path("path") String path);
+
 
     /**
      * Info文章链接
@@ -60,8 +85,8 @@ public interface BaseURL {
      * @param id
      * @return
      */
-    @GET("articles/{id}")
-    Observable<String> getInfoQArticle(@Path("id") int id);
+    @GET("{type}/articles/{id}")
+    Observable<String> getInfoQArticle(@Path("type") String type, @Path("id") int id);
 
     /**
      * 泡在网上的日子 链接
@@ -112,8 +137,13 @@ public interface BaseURL {
 
     //http://www.jcodecraeer.com/plus/search.php?kwtype=0&q=Java
     @GET("plus/search.php")
-    Observable<String> searchJCCContent(@Query("q") String keyword,
-                                        @Query("kwtype") String type);
+    Observable<String> searchJCCContent(@Query("keyword") String keyWord,
+                                        @Query("searchtype") String searchType,
+                                        @Query("orderby") String orderby,
+                                        @Query("kwtype") String type,
+                                        @Query("pagesize") String pagesize,
+                                        @Query("typeid") String typeid,
+                                        @Query("pageNo") String pageNo);
 
     //http://www.infoq.com/cn/search.action?queryString=java&page=1&searchOrder=&sst=o9OURhPD52ER0BUp
     //sst 在infoQ中为搜索验证时使用 不对的话 将会有HTTP 404 异常

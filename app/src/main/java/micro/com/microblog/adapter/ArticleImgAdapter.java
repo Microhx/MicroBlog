@@ -3,11 +3,9 @@ package micro.com.microblog.adapter;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.support.v4.view.PagerAdapter;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
 
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
@@ -15,10 +13,8 @@ import com.bumptech.glide.request.target.Target;
 import java.util.List;
 
 import micro.com.microblog.R;
-import micro.com.microblog.ShowArticleImgActivity;
-import micro.com.microblog.utils.ComUtils;
+import micro.com.microblog.ui.activity.ShowArticleImgActivity;
 import micro.com.microblog.utils.ImageUtils;
-import micro.com.microblog.utils.LogUtils;
 import uk.co.senab.photoview.PhotoView;
 import uk.co.senab.photoview.PhotoViewAttacher;
 
@@ -29,9 +25,6 @@ public class ArticleImgAdapter extends PagerAdapter {
 
     Context mCtx;
     List<String> mImageList;
-
-    private PhotoView photoView;
-    private ProgressBar pbLoading;
 
     public ArticleImgAdapter(Context context, List<String> mImageList) {
         this.mCtx = context;
@@ -56,28 +49,25 @@ public class ArticleImgAdapter extends PagerAdapter {
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
         View rootView = LayoutInflater.from(container.getContext()).inflate(R.layout.img_show_item, null);
-        initView(rootView);
-        initData(position);
+
+        initData(rootView,position);
         container.addView(rootView);
         return rootView;
     }
 
-    private void initView(View rootView) {
-        photoView = (PhotoView) rootView.findViewById(R.id.photo_img);
-        pbLoading = (ProgressBar) rootView.findViewById(R.id.pb_loading);
-    }
+    private void initData(final View rootView, final int position) {
+        //LogUtils.d(position + "--source image->>" + mImageList.get(position));
 
-    private void initData(final int position) {
-        LogUtils.d("--source image->>" + mImageList.get(position));
-
-        ImageUtils.showBigImage(photoView, mImageList.get(position),
+        ImageUtils.showBigImage((PhotoView) rootView.findViewById(R.id.photo_img),
+                mImageList.get(position),
                 new RequestListener<String, Bitmap>() {
                     @Override
                     public boolean onException(Exception e,
                                                String model,
                                                Target<Bitmap> target,
                                                boolean isFirstResource) {
-                        pbLoading.setVisibility(View.GONE);
+
+                        rootView.findViewById(R.id.pb_loading).setVisibility(View.GONE);
                         return false;
                     }
 
@@ -87,22 +77,15 @@ public class ArticleImgAdapter extends PagerAdapter {
                                                    Target<Bitmap> target,
                                                    boolean isFromMemoryCache,
                                                    boolean isFirstResource) {
-                        pbLoading.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                pbLoading.setVisibility(View.GONE);
-
-                            }
-                        });
-
+                        rootView.findViewById(R.id.pb_loading).setVisibility(View.GONE);
                         return false;
                     }
                 });
 
-        initListener();
+        initListener((PhotoView) rootView.findViewById(R.id.photo_img));
     }
 
-    private void initListener() {
+    private void initListener(PhotoView photoView) {
         photoView.setOnPhotoTapListener(new PhotoViewAttacher.OnPhotoTapListener() {
             @Override
             public void onPhotoTap(View view, float v, float v1) {

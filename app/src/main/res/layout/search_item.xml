@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="48dp"
+              android:orientation="vertical"
+              android:paddingBottom="8dp"
+              android:paddingLeft="12dp"
+              android:paddingRight="12dp"
+              android:paddingTop="8dp"
+              app:layout_scrollFlags="scroll|enterAlways">
+
+    <TextView
+        android:id="@+id/search_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/search_edittext_background"
+        android:drawableLeft="@drawable/ico_search_x"
+        android:drawablePadding="4dp"
+        android:gravity="center_vertical"
+        android:hint="@string/search_hint"
+        android:padding="5dp"
+        android:singleLine="true"
+        android:textSize="14sp"/>
+
+
+</LinearLayout>

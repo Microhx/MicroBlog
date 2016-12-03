@@ -12,10 +12,11 @@ import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 
 /**
  * Created by guoli on 2016/9/2.
- * <p/>
+ * <p>
  * 文件操作工具类
  */
 public class FileUtils {
@@ -65,6 +66,7 @@ public class FileUtils {
 
     /**
      * 保存文件
+     *
      * @param stream
      * @param suffix
      * @return
@@ -115,5 +117,37 @@ public class FileUtils {
 
         return true;
     }
+
+
+    public static String getWebKitCssStyle(String content) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("<html>");
+        sb.append("<head>");
+        BufferedReader reader = null;
+        try {
+            reader = new BufferedReader(new InputStreamReader(UIUtils.getAppContext().getAssets().open("webkit.css")));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                sb.append(line);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (null != reader) {
+                try {
+                    reader.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        sb.append("</head>");
+        sb.append(content);
+        sb.append("</body>");
+        sb.append("</html>");
+        return sb.toString();
+    }
+
 
 }

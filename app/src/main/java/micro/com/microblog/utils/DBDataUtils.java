@@ -3,70 +3,29 @@ package micro.com.microblog.utils;
 import android.content.Context;
 
 import com.j256.ormlite.dao.Dao;
-import com.j256.ormlite.stmt.QueryBuilder;
 import com.j256.ormlite.stmt.Where;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.concurrent.RecursiveTask;
 
 import micro.com.microblog.db.DataBaseHelper;
 import micro.com.microblog.entity.Blog;
-import micro.com.microblog.entity.MsgBean;
-import micro.com.microblog.widget.PublicHeadLayout;
 
 /**
  * Created by guoli on 2016/9/21.
  */
 public class DBDataUtils {
 
-    /**
-     * 获取
-     *
-     * @param context
-     * @param userId
-     * @param maxLine
-     * @return
-     */
-    public static List<MsgBean> getUserMsgBean(Context context, int userId, long maxLine, long offset) {
-        List<MsgBean> _msgBeanList = new LinkedList<>();
 
-        Dao<MsgBean, Integer> msgDao = DataBaseHelper.getInstance(context).getMsgDao();
-        try {
-            if (null != msgDao) {
-                Where<MsgBean, Integer> where = msgDao.queryBuilder().limit(maxLine).offset(offset).orderBy("chat_time", false).where();
-                where.eq("sender_id", userId);
-                where.or();
-                where.eq("receive_id", userId);
-
-                _msgBeanList = where.query();
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return _msgBeanList;
-    }
-
-    public static void addUserMsgBean(Context context, MsgBean msgBean) {
-        Dao<MsgBean, Integer> msgDao = DataBaseHelper.getInstance(context).getMsgDao();
-        try {
-            msgDao.create(msgBean);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
 
     public static List<Blog> getUserReadBlog(long maxLine, long offset) {
-        return getBlogOrderBy(maxLine, offset, 0);
+        return getBlogOrderBy(maxLine, offset, Blog.READ_TYPE);
     }
 
     public static List<Blog> getUserCollectBlog(long maxLine, long offset) {
-        return getBlogOrderBy(maxLine, offset, 1);
+        return getBlogOrderBy(maxLine, offset, Blog.COLLECT_TYPE);
     }
 
     private static List<Blog> getBlogOrderBy(long maxLine, long offset, int type) {
@@ -126,6 +85,7 @@ public class DBDataUtils {
         int insertId = -1;
         Dao<Blog, Integer> blogDao = DataBaseHelper.getInstance(UIUtils.getAppContext()).getBlogDao();
         try {
+            blog.setType(Blog.COLLECT_TYPE);
             insertId = blogDao.create(blog);
             LogUtils.d("add blog success : " + insertId);
         } catch (Exception e) {
@@ -145,6 +105,7 @@ public class DBDataUtils {
         try {
             boolean hasRecord = blogInDataBase(mCurrentBlog.getTitle(), Blog.READ_TYPE);
             if (!hasRecord) {
+                mCurrentBlog.setType(Blog.READ_TYPE);
                 insertId = blogDao.create(mCurrentBlog);
                 LogUtils.d("add blog success : " + insertId);
             }

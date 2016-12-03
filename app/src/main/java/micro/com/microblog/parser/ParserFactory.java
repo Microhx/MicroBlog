@@ -1,6 +1,6 @@
 package micro.com.microblog.parser;
 
-import micro.com.microblog.adapter.ArticleType;
+import micro.com.microblog.entity.ArticleType;
 
 /**
  * Created by guoli on 2016/9/16.

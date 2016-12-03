@@ -1,0 +1,62 @@
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+
+<style type='text/css'>
+
+body{
+    font-size: 15px;
+    color:#000000 ;
+
+  }
+
+p{
+    line-height: 18px;
+}
+
+code{
+    background: #eeeeee;
+    display: inline-block;
+    padding: 2px 4px;
+    margin: 2px 5px;
+    border-radius: 3px;
+    font-size: 14px;
+    font-family: "Courier New", Courier, monospace;
+    text-align:left;
+}
+
+pre {
+    border:1px solid #e8e8e8;
+    /*background:#f4f4f4 url(i/green_border.jpg) repeat-y left top;*/
+    background-color: rgb(245, 242, 240);
+    color: #314E64;
+    padding: 5px 5px 5px 5px;
+    line-height: 150%;
+    margin: 5px 0 10px 0;
+    width: 94%;
+    overflow:auto;
+    float:left;
+    text-align:left;
+    display:block;
+    clear:both;
+    font-family: Consolas, Monaco, 'Andale Mono', monospace;
+}
+
+blockquote {
+    border-left: 6px solid #ddd;
+    padding: 5px 0 5px 10px;
+    margin: 15px 0 15px 15px;
+}
+
+table {
+    width:100%;
+}
+
+
+ol,ul {
+  font-size: 15px;
+}
+
+.pictureclass {
+    text-align: center;
+}
+
+</style>

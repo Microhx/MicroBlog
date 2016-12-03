@@ -10,13 +10,12 @@ import org.jsoup.select.Elements;
 import java.util.ArrayList;
 import java.util.List;
 
-import micro.com.microblog.adapter.ArticleType;
+import micro.com.microblog.entity.ArticleType;
 import micro.com.microblog.entity.Blog;
 import micro.com.microblog.entity.HtmlContent;
 import micro.com.microblog.utils.ComUtils;
 import micro.com.microblog.utils.DBDataUtils;
 import micro.com.microblog.utils.FileUtils;
-import micro.com.microblog.utils.JsoupUtils;
 import micro.com.microblog.utils.LogUtils;
 
 /**
@@ -50,19 +49,27 @@ public class InfoQParser implements IBlogParser {
                     String auAndTime = t1.getElementsByClass("author").text();
                     String link = "http://www.infoq.com" + t1.select("h2").select("a").attr("href");
 
+                    Element picElement = t1.getElementsByClass("pic").first();
+                    String img = null;
+                    if (null != picElement) {
+                        img = picElement.select("a").first().select("img").attr("src");
+                    }
+
                     LogUtils.d("title:" + title);
                     LogUtils.d("link:" + link);
                     LogUtils.d("auAndTime:" + auAndTime);
                     LogUtils.d("desc:" + desc);
+                    LogUtils.d("img:" + img);
 
                     blog.title = title;
-                    blog.description = desc;
+                    blog.description = ComUtils.cutOffString(desc, 120);
                     blog.author = auAndTime;
                     blog.publishTime = "";
                     blog.link = link;
                     blog.articleType = ArticleType.INFOQ;
                     blog.hasRead = DBDataUtils.userHasReadArticle(title);
                     blog.hasCollect = DBDataUtils.userHasCollection(title);
+                    blog.photo = img;
 
                     _listBlog.add(blog);
                 }
@@ -74,7 +81,7 @@ public class InfoQParser implements IBlogParser {
 
     @Override
     public HtmlContent getBlogContent(int type, String strHtml) {
-        HtmlContent htmlContent = new HtmlContent() ;
+        HtmlContent htmlContent = new HtmlContent();
 
         //获取文档内容
         Document doc = Jsoup.parse(strHtml);
@@ -103,7 +110,7 @@ public class InfoQParser implements IBlogParser {
         detail.getElementById("contentRatingWidget").remove();
         detail.getElementById("noOfComments").remove();
 
-        //处理代码块 -markdown
+       /* //处理代码块 -markdown
         Elements markdownElement = detail.select("pre");
         for (Element markdown : markdownElement) {
             Elements childs = markdown.getAllElements();
@@ -122,18 +129,20 @@ public class InfoQParser implements IBlogParser {
         for (Element codeNode : codeElements) {
             codeNode.attr("class", "brush:java;gutter : false ;");
         }
-
+*/
         //缩放图片
         Elements imgNodes = detail.getElementsByTag("img");
         for (Element img : imgNodes) {
             img.attr("width", "auto");
-            img.attr("style", "max-width:100%");
+            img.attr("style", "max-width:80%");
+            img.attr("href", "#");
             String imgSrc = img.attr("src");
-            img.attr("onclick" , "javascript:photo.showImg('"+imgSrc+"')") ;
+            img.attr("onclick", "javascript:photo.showImg('" + imgSrc + "')");
             htmlContent.addPhoto(imgSrc);
         }
 
-        htmlContent.mContent =JsoupUtils.sHtmlFormat.replace(JsoupUtils.CONTENT_HOLDER, detail.html()) ;
+        htmlContent.mContent = FileUtils.getWebKitCssStyle(detail.html());
+
         return htmlContent;
     }
 

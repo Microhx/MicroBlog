@@ -3,6 +3,7 @@ package micro.com.microblog.utils;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -38,4 +39,35 @@ public class ImageUtils {
                 .into(imageView);
     }
 
+    public static void showSmallImage(ImageView iv , String url) {
+        Glide.with(UIUtils.getAppContext()).
+                load(url).
+                fitCenter().
+                error(R.drawable.ic_empty_picture).
+                placeholder(new ColorDrawable(Color.parseColor("#88000000"))).
+                into(iv) ;
+    }
+
+    /**
+     * 1.原创
+     * 2.转载
+     * 3.访问
+     * 4.摘要
+     * 5.约谈
+     */
+    public static void showImageViewTag(ImageView iv, int itEyeType) {
+        if(itEyeType == 1) {
+            iv.setImageResource(R.drawable.yuan);
+        }else if(itEyeType == 2) {
+            iv.setImageResource(R.drawable.zhuan);
+        }else if(itEyeType == 3) {
+            iv.setImageResource(R.drawable.fang);
+        }else if(itEyeType == 4) {
+            iv.setImageResource(R.drawable.zhai);
+        }else if(itEyeType == 5) {
+            iv.setImageResource(R.drawable.yue);
+        }else {
+            iv.setVisibility(View.GONE);
+        }
+    }
 }

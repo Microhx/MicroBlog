@@ -10,5 +10,4 @@
             android:text="@string/str_error"
             android:layout_height="wrap_content"/>
 
-
 </RelativeLayout>

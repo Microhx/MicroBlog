@@ -24,6 +24,7 @@ public class OperationWindow extends PopupWindow {
 
     Button tv1;
     Button tv2;
+    Button tv3;
     Button tvCancel;
 
     ShareItem share_qq;
@@ -39,6 +40,7 @@ public class OperationWindow extends PopupWindow {
         View contentView = LayoutInflater.from(UIUtils.getAppContext()).inflate(R.layout.operation_window_layuot, null);
         tv1 = (Button) contentView.findViewById(R.id.btn_op1);
         tv2 = (Button) contentView.findViewById(R.id.btn_op2);
+        tv3 = (Button) contentView.findViewById(R.id.btn_op3);
         tvCancel = (Button) contentView.findViewById(R.id.btn_cancel);
 
         share_qq = (ShareItem) contentView.findViewById(R.id.share_qq);
@@ -51,7 +53,7 @@ public class OperationWindow extends PopupWindow {
         setWidth(ViewGroup.LayoutParams.MATCH_PARENT);
         setHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
         //设置背景
-        setBackgroundDrawable(new ColorDrawable(0xFF000000));
+        setBackgroundDrawable(new ColorDrawable(0xFF23F0F7));
         //设置点击外部可以取消
         setOutsideTouchable(true);
         //设置动画
@@ -75,7 +77,6 @@ public class OperationWindow extends PopupWindow {
             @Override
             public void onClick(View v) {
                 if (null != mListener) mListener.onItem1Click();
-
                 dismiss();
             }
         });
@@ -84,7 +85,15 @@ public class OperationWindow extends PopupWindow {
             @Override
             public void onClick(View v) {
                 if (null != mListener) mListener.onItem2Click();
+                dismiss();
+            }
+        });
 
+
+        tv3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (null != mListener) mListener.onItem3Click();
                 dismiss();
             }
         });
@@ -99,15 +108,16 @@ public class OperationWindow extends PopupWindow {
         share_weixin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                ToUtils.toast("share wechat");
-                ShareManager.getInstance().shareToWeixin(mDetachActivity,mBlog);
+                ToUtils.toast("微信说我的信息审核失败,可能是我的身份证过期了吧");
+//                ShareManager.getInstance().shareToWeixin(mDetachActivity,mBlog);
             }
         });
 
         share_weibo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ToUtils.toast("share weibo");
+                ToUtils.toast("微信说我的信息审核失败,可能是我的身份证过期了吧");
+                // ToUtils.toast("share weibo");
             }
         });
     }
@@ -122,6 +132,11 @@ public class OperationWindow extends PopupWindow {
         return this;
     }
 
+    public OperationWindow setBtn3Text(String msg) {
+        tv3.setText(msg);
+        return this;
+    }
+
     public OperationWindow setOperationListener(OperationClickListener listener) {
         this.mListener = listener;
         return this;
@@ -131,5 +146,7 @@ public class OperationWindow extends PopupWindow {
         void onItem1Click();
 
         void onItem2Click();
+
+        void onItem3Click();
     }
 }

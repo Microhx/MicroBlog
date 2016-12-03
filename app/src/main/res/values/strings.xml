@@ -24,4 +24,10 @@
     <string name="download_success">文件下载成功，保存在MicroBlog文件夹下</string>
     <string name="download_error">下载失败，请稍候重试</string>
     <string name="download_start">开始下载</string>
+    <string name="str_loading">请稍候...</string>
+    <string name="str_network_error">网络不可用，请检查您的网络配置</string>
+    <string name="str_other_error">数据获取失败，请稍后重试</string>
+    <string name="str_search">搜索</string>
+
+
 </resources>

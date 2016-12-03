@@ -1,15 +1,11 @@
 package micro.com.microblog.entity;
 
-import android.graphics.Color;
-
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
-import micro.com.microblog.adapter.ArticleType;
-
 /**
  * Created by guoli on 2016/9/2.
- *
+ * <p/>
  * 博客实体类
  */
 
@@ -18,17 +14,7 @@ public class Blog implements java.io.Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    /**
-     * 阅读记录
-     */
-    public static final int READ_TYPE = 0 ;
-    /**
-     * 收藏记录
-     */
-    public static final int COLLECT_TYPE = 1 ;
-
-
-    @DatabaseField(generatedId = true,columnName = "_id")
+    @DatabaseField(generatedId = true, columnName = "_id")
     public int id; // id
 
     @DatabaseField(columnName = "title")
@@ -41,7 +27,7 @@ public class Blog implements java.io.Serializable {
     public String publishTime; // 博客发布时间
 
     @DatabaseField(columnName = "author")
-    public String author ;
+    public String author;
 
     @DatabaseField(columnName = "desc")
     public String description;// 文章摘要
@@ -53,7 +39,13 @@ public class Blog implements java.io.Serializable {
     public String msg; // 消息
 
     @DatabaseField(columnName = "article_type")
-    public ArticleType articleType; // 博客类型，原创，翻译，转载
+    public ArticleType articleType; // CSDN/INFOQ/OSCHINA
+
+    @DatabaseField(columnName = "article_inner_type")
+    public int articleInnerType;  //IOS/ANDROID/前端/数据库....
+
+    @DatabaseField(columnName = "photo")
+    public String photo;
 
     /**
      * 收藏 1
@@ -63,36 +55,51 @@ public class Blog implements java.io.Serializable {
     public int type;
 
     @DatabaseField(columnName = "add_time")  //收藏时间
-    public long addTime ;
+    public long addTime;
 
     @DatabaseField(columnName = "read_time")  // 阅读时间
-    public long readTime ;
+    public long readTime;
+
+    /**
+     * 阅读记录
+     */
+    public static final int READ_TYPE = 0;
+    /**
+     * 收藏记录
+     */
+    public static final int COLLECT_TYPE = 1;
+
+    /**iteye类型*/
+    /**
+     * 1.原创
+     * 2.转载
+     * 3.访问
+     * 4.摘要
+     * 5.约谈
+     */
+    public int itEyeType;
+
+    /**
+     * 评论次数
+     */
+    public String voteCount;
 
     /**
      * 是否被阅读
      */
-    public boolean hasRead ;
+    public boolean hasRead;
 
     /**
      * 是否被收藏
      */
-    public boolean hasCollect ;
+    public boolean hasCollect;
 
-
-    public long getReadTime() {
-        return readTime;
+    public String getContent() {
+        return content;
     }
 
-    public void setReadTime(long readTime) {
-        this.readTime = readTime;
-    }
-
-    public ArticleType getArticleType() {
-        return articleType;
-    }
-
-    public void setArticleType(ArticleType articleType) {
-        this.articleType = articleType;
+    public void setContent(String content) {
+        this.content = content;
     }
 
     public String getAuthor() {
@@ -103,12 +110,20 @@ public class Blog implements java.io.Serializable {
         this.author = author;
     }
 
-    public String getContent() {
-        return content;
+    public long getAddTime() {
+        return addTime;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setAddTime(long addTime) {
+        this.addTime = addTime;
+    }
+
+    public ArticleType getArticleType() {
+        return articleType;
+    }
+
+    public void setArticleType(ArticleType articleType) {
+        this.articleType = articleType;
     }
 
     public String getDescription() {
@@ -117,6 +132,22 @@ public class Blog implements java.io.Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public boolean isHasCollect() {
+        return hasCollect;
+    }
+
+    public void setHasCollect(boolean hasCollect) {
+        this.hasCollect = hasCollect;
+    }
+
+    public boolean isHasRead() {
+        return hasRead;
+    }
+
+    public void setHasRead(boolean hasRead) {
+        this.hasRead = hasRead;
     }
 
     public int getId() {
@@ -135,12 +166,28 @@ public class Blog implements java.io.Serializable {
         this.link = link;
     }
 
+    public int getItEyeType() {
+        return itEyeType;
+    }
+
+    public void setItEyeType(int itEyeType) {
+        this.itEyeType = itEyeType;
+    }
+
     public String getMsg() {
         return msg;
     }
 
     public void setMsg(String msg) {
         this.msg = msg;
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
     }
 
     public String getPublishTime() {
@@ -151,8 +198,12 @@ public class Blog implements java.io.Serializable {
         this.publishTime = publishTime;
     }
 
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
+    public long getReadTime() {
+        return readTime;
+    }
+
+    public void setReadTime(long readTime) {
+        this.readTime = readTime;
     }
 
     public String getTitle() {
@@ -171,12 +222,12 @@ public class Blog implements java.io.Serializable {
         this.type = type;
     }
 
-    public long getAddTime() {
-        return addTime;
+    public String getVoteCount() {
+        return voteCount;
     }
 
-    public void setAddTime(long addTime) {
-        this.addTime = addTime;
+    public void setVoteCount(String voteCount) {
+        this.voteCount = voteCount;
     }
 
     @Override
@@ -185,13 +236,8 @@ public class Blog implements java.io.Serializable {
                 "articleType=" + articleType +
                 ", id=" + id +
                 ", title='" + title + '\'' +
-                ", link='" + link + '\'' +
-                ", publishTime='" + publishTime + '\'' +
-                ", author='" + author + '\'' +
-                ", description='" + description + '\'' +
-                ", content='" + content + '\'' +
-                ", msg='" + msg + '\'' +
-                ", type=" + type +
+                "hasRead=" + hasRead + "" +
+                "hasCollect=" + hasCollect +
                 '}';
     }
 }

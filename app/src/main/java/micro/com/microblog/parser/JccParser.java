@@ -1,9 +1,7 @@
 package micro.com.microblog.parser;
 
-import android.os.Parcelable;
 import android.text.TextUtils;
 
-import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -13,13 +11,13 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
-import micro.com.microblog.adapter.ArticleType;
+import micro.com.microblog.entity.ArticleType;
 import micro.com.microblog.entity.Blog;
 import micro.com.microblog.entity.HtmlContent;
 import micro.com.microblog.http.url.BaseURL;
+import micro.com.microblog.utils.ComUtils;
 import micro.com.microblog.utils.DBDataUtils;
 import micro.com.microblog.utils.FileUtils;
-import micro.com.microblog.utils.JsoupUtils;
 import micro.com.microblog.utils.LogUtils;
 
 /**
@@ -40,7 +38,7 @@ public class JccParser implements IBlogParser {
 
     @Override
     public List<Blog> getSearchBlogList(int type, String htmlStr) {
-        return null;
+        return  parseData(htmlStr);
     }
 
     private List<Blog> parseData(String htmlStr) {
@@ -51,33 +49,44 @@ public class JccParser implements IBlogParser {
             Element rootList = doc.getElementsByClass("archive-list").get(0);
             if (null == rootList) return _BlogList;
 
-            Elements blogList = rootList.getElementsByClass("archive-text");
+            Elements blogList = rootList.getElementsByClass("archive-item");
             if (null == blogList || blogList.isEmpty()) return _BlogList;
 
             Blog b;
             for (Element indexElement : blogList) {
-                String title = indexElement.select("h3").get(0).select("a").text();
-                String link = indexElement.select("h3").get(0).select("a").attr("href");
-                String desc = indexElement.select("p").get(0).text();
-                String author = indexElement.getElementsByClass("list-user").select("a").select("strong").text();
-                String publishTime = indexElement.getElementsByClass("archive-data").get(0).getElementsByClass("glyphicon-class").text();
+                b = new Blog();
 
+                Elements conversonElement = indexElement.getElementsByClass("covercon");
+                if (null != conversonElement && null != conversonElement.first()) {
+                    b.photo = "http://www.jcodecraeer.com" + conversonElement.first().select("img").attr("src");
+                    LogUtils.d("photo:" + b.photo);
+                }
+
+                indexElement = indexElement.getElementsByClass("archive-text").first();
+
+                String title = indexElement.select("h3").get(0).select("a").text();
                 LogUtils.d("title:" + title);
+
+                String link = indexElement.select("h3").get(0).select("a").attr("href");
                 LogUtils.d("link:" + link);
+
+                String desc = indexElement.select("p").get(0).text();
                 LogUtils.d("desc:" + desc);
+
+                String author = indexElement.getElementsByClass("list-user").select("a").select("strong").text();
                 LogUtils.d("author:" + author);
+
+                String publishTime = indexElement.getElementsByClass("archive-data").get(0).getElementsByClass("glyphicon-class").text();
                 LogUtils.d("publishTime:" + publishTime);
 
-                b = new Blog();
                 b.title = title;
                 b.link = BaseURL.JCC_PATH.substring(0, BaseURL.JCC_PATH.length() - 1) + link;
-                b.description = desc;
+                b.description = ComUtils.cutOffString(desc, 120);
                 b.author = author;
                 b.publishTime = publishTime;
                 b.articleType = ArticleType.PAOWANG;
                 b.hasRead = DBDataUtils.userHasReadArticle(title);
                 b.hasCollect = DBDataUtils.userHasCollection(title);
-
 
                 _BlogList.add(b);
             }
@@ -106,7 +115,7 @@ public class JccParser implements IBlogParser {
             img.attr("onclick", "javascript:photo.showImg('" + imgSrc + "')");
             htmlContent.addPhoto(imgSrc);
         }
-        htmlContent.mContent = JsoupUtils.sHtmlFormat.replace(JsoupUtils.CONTENT_HOLDER, contentElement.html());
+        htmlContent.mContent = FileUtils.getWebKitCssStyle(contentElement.html());
         return htmlContent;
     }
 

@@ -11,7 +11,6 @@ import com.j256.ormlite.table.TableUtils;
 import java.sql.SQLException;
 
 import micro.com.microblog.entity.Blog;
-import micro.com.microblog.entity.MsgBean;
 import micro.com.microblog.utils.LogUtils;
 
 /**
@@ -20,15 +19,15 @@ import micro.com.microblog.utils.LogUtils;
 public class DataBaseHelper extends OrmLiteSqliteOpenHelper {
 
     private static final String DB_NAME = "db_micro.db";
+    private static final int DB_VERSION = 6;
 
     private static DataBaseHelper instance;
 
-    private Dao<MsgBean, Integer> msgDao;
-    private Dao<Blog,Integer> mBlogDao ;
+    private Dao<Blog, Integer> mBlogDao;
 
 
     public DataBaseHelper(Context context) {
-        this(context, DB_NAME, null, 5);
+        this(context, DB_NAME, null, DB_VERSION);
     }
 
     public DataBaseHelper(Context context,
@@ -41,9 +40,9 @@ public class DataBaseHelper extends OrmLiteSqliteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase, ConnectionSource connectionSource) {
         try {
-            TableUtils.createTable(connectionSource, MsgBean.class);
-            TableUtils.createTable(connectionSource, Blog.class) ;
+            TableUtils.createTable(connectionSource, Blog.class);
 
+            LogUtils.d("create database success....");
         } catch (SQLException e) {
             e.printStackTrace();
             LogUtils.e("create database error,please check it now");
@@ -52,9 +51,7 @@ public class DataBaseHelper extends OrmLiteSqliteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, ConnectionSource connectionSource, int i, int i1) {
-
         try {
-            TableUtils.dropTable(connectionSource, MsgBean.class, true);
             TableUtils.dropTable(connectionSource, Blog.class, true);
 
             onCreate(sqLiteDatabase, connectionSource);
@@ -76,32 +73,16 @@ public class DataBaseHelper extends OrmLiteSqliteOpenHelper {
         return instance;
     }
 
-    public Dao<MsgBean, Integer> getMsgDao() {
-        if (null == msgDao) {
+    public Dao<Blog, Integer> getBlogDao() {
+        if (null == mBlogDao) {
             try {
-                msgDao = getDao(MsgBean.class);
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-        return msgDao;
-    }
-
-
-    public Dao<Blog,Integer> getBlogDao() {
-        if(null == mBlogDao) {
-            try{
                 mBlogDao = getDao(Blog.class);
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
-        return mBlogDao ;
+        return mBlogDao;
     }
-    
-    public void close() {
-        super.close();
-        msgDao = null;
-    }
+
 
 }

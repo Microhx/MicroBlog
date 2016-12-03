@@ -19,12 +19,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 
-        <micro.com.microblog.widget.MarkdownView
-            android:id="@+id/markdownView"
+        <android.support.v4.widget.ContentLoadingProgressBar
+            android:id="@+id/myProgressBar"
+            style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="gone"/>
-
+            android:layout_height="5dp"
+            android:visibility="gone"
+            />
 
     </FrameLayout>
 

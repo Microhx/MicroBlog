@@ -1,9 +1,7 @@
 package micro.com.microblog.parser;
 
 import android.text.TextUtils;
-import android.util.Log;
 
-import org.json.JSONArray;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -12,13 +10,12 @@ import org.jsoup.select.Elements;
 import java.util.ArrayList;
 import java.util.List;
 
-import micro.com.microblog.adapter.ArticleType;
+import micro.com.microblog.entity.ArticleType;
 import micro.com.microblog.entity.Blog;
 import micro.com.microblog.entity.HtmlContent;
-import micro.com.microblog.mvc.presenter.OSChinaPresenter;
+import micro.com.microblog.utils.ComUtils;
 import micro.com.microblog.utils.DBDataUtils;
 import micro.com.microblog.utils.FileUtils;
-import micro.com.microblog.utils.JsoupUtils;
 import micro.com.microblog.utils.LogUtils;
 
 /**
@@ -46,8 +43,10 @@ public class OSChinaParser implements IBlogParser {
                 Blog blog;
                 for (Element e : rootElements) {
                     blog = new Blog();
-                    Element target = e.getElementsByClass("box-aw").get(0);
 
+                    String photo = e.getElementsByClass("box-fl").get(0).select("img").attr("data-delay");
+
+                    Element target = e.getElementsByClass("box-aw").get(0);
                     String title = target.select("a").get(0).text();
                     String link = target.select("a").get(0).attr("href");
                     String desc = target.select("section").get(0).text();
@@ -60,13 +59,17 @@ public class OSChinaParser implements IBlogParser {
                     LogUtils.d("desc:" + desc);
                     LogUtils.d("publishTime:" + publishTime);
                     LogUtils.d("author:" + author);
+                    LogUtils.d("photo:" + photo);
 
                     blog.title = title;
                     blog.link = link;
-                    blog.description = desc;
+                    blog.description = ComUtils.cutOffString(desc, 120);
                     blog.publishTime = publishTime;
                     blog.author = author;
                     blog.articleType = ArticleType.OSCHINA;
+                    blog.photo = photo;
+                    blog.hasRead = DBDataUtils.userHasReadArticle(title);
+                    blog.hasCollect = DBDataUtils.userHasCollection(title);
 
                     _blogList.add(blog);
                 }
@@ -110,6 +113,9 @@ public class OSChinaParser implements IBlogParser {
                         blog.author = author;
                         blog.articleType = ArticleType.OSCHINA;
 
+                        //blog.hasRead = DBDataUtils.userHasReadArticle(title);
+                        //blog.hasCollect = DBDataUtils.userHasCollection(title);
+
                         blogList.add(blog);
                     }
                 }
@@ -122,7 +128,7 @@ public class OSChinaParser implements IBlogParser {
 
     @Override
     public HtmlContent getBlogContent(int type, String strHtml) {
-        HtmlContent htmlContent = new HtmlContent() ;
+        HtmlContent htmlContent = new HtmlContent();
 
         Document document = Jsoup.parse(strHtml);
         Element bodyElement = document.getElementsByClass("blog-content").get(0);
@@ -135,33 +141,25 @@ public class OSChinaParser implements IBlogParser {
         bodyElement.getElementsByClass("operate").remove();
         bodyElement.getElementsByClass("reward-list").remove();
 
-       /*Elements elements = bodyElement.select("pre");
-        for (Element codeNode : elements) {
-            codeNode.tagName("pre");
-            codeNode.attr("name", "code");
-            codeNode.html(codeNode.text());
-        }
-
-        Elements codeElements = bodyElement.select("pre[name=code]");
-        for (Element codeNode : codeElements) {
-            codeNode.attr("class", "brush:java;gutter:false");
-        }
-
-
-        return JsoupUtils.sHtmlFormat.replace(JsoupUtils.CONTENT_HOLDER, bodyElement.html());*/
-
         Elements imgElements = bodyElement.getElementsByTag("img");
         for (Element img : imgElements) {
             img.attr("width", "auto");
-            img.attr("style", "max-width:100%");
+            img.attr("style", "max-width:96%");
 
             String imgSrc = img.attr("src");
-            img.attr("onclick" , "javascript:photo.showImg('"+imgSrc+"')") ;
+            img.attr("onclick", "javascript:photo.showImg('" + imgSrc + "')");
             htmlContent.addPhoto(imgSrc);
         }
 
-        htmlContent.mContent = bodyElement.text().replaceAll("```objc", "<pre><code>").replaceAll("```", "</code></pre>");
-        return htmlContent ;
+        //存在TextArea时，需要将textArea中的打开
+        Elements textAreaElements = bodyElement.getElementsByClass("noshow_content");
+
+        if (null != textAreaElements && !textAreaElements.isEmpty()) {
+            textAreaElements.get(0).attr("style", "width:100%;height:700px");
+        }
+
+        htmlContent.mContent = FileUtils.getWebKitCssStyle(bodyElement.html());
+        return htmlContent;
     }
 
     @Override

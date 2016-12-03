@@ -6,35 +6,44 @@
               android:orientation="vertical">
 
     <micro.com.microblog.widget.PublicHeadLayout
+        android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:tv_title="关于作者"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_weight="1"
+        android:layout_height="0dp"
         android:layout_marginBottom="20dp"
-        android:layout_height="0dp">
+        android:layout_weight="1">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="60dp"
+            android:text="MicroHx"
+            android:textColor="#000"
+            android:textSize="20sp"/>
 
         <ImageView
             android:id="@+id/iv_user_icon"
             android:layout_width="200dp"
+            android:layout_height="200dp"
             android:layout_centerInParent="true"
-            android:src="@drawable/author_inco"
             android:layout_marginBottom="10dp"
-            android:layout_height="200dp"/>
+            android:src="@drawable/author_inco"/>
 
         <TextView
             android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_below="@id/iv_user_icon"
-            android:autoLink="web"
             android:layout_centerHorizontal="true"
-            android:text="@string/str_author_blog"
-            android:layout_height="wrap_content"/>
+            android:autoLink="web"
+            android:text="@string/str_author_blog"/>
 
 
     </RelativeLayout>
-
 
 
 </LinearLayout>

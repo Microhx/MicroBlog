@@ -19,6 +19,20 @@
         android:background="@color/chatting_receiver_color"
         />
 
+    <Button
+        android:id="@+id/btn_op3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:gravity="center"
+        android:padding="16dp"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/chatting_receiver_color"
+        />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

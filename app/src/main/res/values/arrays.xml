@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="main_title">
+        <item>InfoQ</item>
+        <item>ITEye</item>
+        <item>CSDN</item>
+        <item>泡网</item>
+        <item>OSC</item>
+    </array>
+
+    <array name="toolbar_title">
+        <item>InfoQ</item>
+        <item>ITEye</item>
+        <item>CSDN</item>
+        <item>泡在网上的日子</item>
+        <item>OSChina</item>
+    </array>
+
+    <array name="tab_infoq">
+        <item>架构</item>
+        <item>移动</item>
+        <item>云计算</item>
+        <item>大数据</item>
+        <item>运维</item>
+    </array>
+
+    <array name="tab_iteye">
+        <item>资讯</item>
+        <item>精华</item>
+        <item>博客</item>
+        <item>专栏</item>
+    </array>
+
+    <array name="tab_csdn">
+        <item>前端</item>
+        <item>移动</item>
+        <item>云计算</item>
+        <item>大数据</item>
+        <item>数据库</item>
+    </array>
+
+    <array name="tab_jcc">
+        <item>综合资讯</item>
+        <item>程序设计</item>
+        <item>安卓开发</item>
+        <item>前端开发</item>
+        <item>IOS开发</item>
+    </array>
+
+    <array name="tab_osc">
+        <item>全部</item>
+        <item>移动开发</item>
+        <item>前端开发</item>
+        <item>服务器</item>
+        <item>游戏开发</item>
+        <item>编程语言</item>
+
+    </array>
+
+
+</resources>

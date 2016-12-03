@@ -1,11 +1,9 @@
 package micro.com.microblog.entity;
 
-import micro.com.microblog.adapter.ArticleType;
-
 /**
  * Created by guoli on 2016/10/8.
  */
-public class EventBean {
+public class EventBean implements java.io.Serializable{
 
     /**
      * 文章类型

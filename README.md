@@ -5,5 +5,7 @@
    <img src="pictures/p1.png" width="250px"/>
    <img src="pictures/p2.png" width="250px"/>
    <img src="pictures/p3.png" width="250px"/>
+   <hr/>
    <img src="pictures/p4.png" width="250px"/>
    <img src="pictures/p5.png" width="250px"/>
+   <img src="pictures/p6.png" width="250px"/>
